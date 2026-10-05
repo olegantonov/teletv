@@ -141,7 +141,7 @@ class SettingsActivity : AppCompatActivity() {
             Prefs.autoLigado = ligar
             if (ligar) AutoDownload.sincronizar()
         }
-        item(getString(R.string.choose_chats), getString(R.string.choose_chats_sum, Prefs.autoChats.size)) {
+        item(getString(R.string.choose_chats), resources.getQuantityString(R.plurals.choose_chats_sum, Prefs.autoChats.size, Prefs.autoChats.size)) {
             startActivity(Intent(this, AutoChatsActivity::class.java))
         }
         deslizante(getString(R.string.auto_count), Prefs.autoQtdOpcoes, Prefs.autoQtd, { it.toString() }) {

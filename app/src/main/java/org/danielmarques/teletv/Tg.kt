@@ -113,6 +113,8 @@ object Tg {
                 aplicarLimites()
                 limpar()
                 carregarChats(TdApi.ChatListMain())
+                // Histórico e favoritos podem apontar para conversas arquivadas.
+                carregarChats(TdApi.ChatListArchive())
                 principal.post { AutoDownload.sincronizar() }
             }
             is TdApi.AuthorizationStateClosed -> {

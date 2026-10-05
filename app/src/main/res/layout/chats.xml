@@ -23,6 +23,17 @@
             android:textStyle="bold" />
 
         <Button
+            android:id="@+id/biblioteca"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/foco"
+            android:paddingHorizontal="20dp"
+            android:text="@string/library"
+            android:textAllCaps="false"
+            android:textColor="@color/texto" />
+
+        <Button
             android:id="@+id/buscar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,6 +53,27 @@
             android:text="@string/settings"
             android:textAllCaps="false"
             android:textColor="@color/texto" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/secao_continuar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/continue_watching"
+            android:textColor="@color/texto_fraco"
+            android:textSize="16sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/continuar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <HorizontalScrollView

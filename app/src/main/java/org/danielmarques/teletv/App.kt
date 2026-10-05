@@ -9,6 +9,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         Prefs.iniciar(this)
+        Biblioteca.iniciar(this)
         Tg.iniciar(this)
         registerActivityLifecycleCallbacks(Trava)
     }

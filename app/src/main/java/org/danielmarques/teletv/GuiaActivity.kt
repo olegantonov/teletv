@@ -124,7 +124,7 @@ class GuiaActivity : AppCompatActivity() {
             }
             Passo.DOWNLOADS -> {
                 pagina(R.string.g_auto_t, R.string.g_auto)
-                ui.item(getString(R.string.choose_chats), getString(R.string.choose_chats_sum, Prefs.autoChats.size)) {
+                ui.item(getString(R.string.choose_chats), resources.getQuantityString(R.plurals.choose_chats_sum, Prefs.autoChats.size, Prefs.autoChats.size)) {
                     startActivity(Intent(this, AutoChatsActivity::class.java))
                 }
             }

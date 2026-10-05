@@ -8,7 +8,10 @@
     <string name="tab_archived">Archived</string>
     <string name="missing_api">This build has no Telegram api_id and api_hash configured.</string>
     <string name="connecting">Connecting to Telegram…</string>
-    <string name="chats_count">%d chats</string>
+    <plurals name="chats_count">
+        <item quantity="one">%d chat</item>
+        <item quantity="other">%d chats</item>
+    </plurals>
     <string name="no_chat_match">No chats matching \"%s\" in this tab.</string>
     <string name="loading_chats">Loading chats…</string>
     <string name="type_channel">Channel</string>
@@ -40,7 +43,10 @@
     <string name="search_in_chat">Search in this chat</string>
     <string name="loading">Loading…</string>
     <string name="no_videos">No videos in this chat.</string>
-    <string name="videos_count">%d videos</string>
+    <plurals name="videos_count">
+        <item quantity="one">%d video</item>
+        <item quantity="other">%d videos</item>
+    </plurals>
     <string name="videos_filtered">%1$d videos match these filters, out of %2$d loaded</string>
     <string name="has_more">%s (more available: scroll down)</string>
     <string name="load_error">Could not load: %s</string>
@@ -113,10 +119,13 @@
     <string name="about_text">TeleTV %1$s\n\nAn unofficial Telegram client for TVs: browse your chats and watch their videos with the remote control.\n\nSource code and new versions: github.com/%2$s\n\nThis app is not affiliated with or endorsed by Telegram. It uses the public Telegram API and connects only to Telegram servers and, to look for updates, to GitHub. It does not collect or send usage data.\n\n\nSUPPORT\n\nTeleTV is free and has no ads. Bitcoin donations: %3$s\n(the QR code is in Settings → Support the project)\n\n\nLICENSE\n\nMIT License. Copyright (c) 2026 Daniel Marques.\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software, to use, copy, modify, merge, publish, distribute, sublicense and sell copies, provided that the copyright notice and this permission notice are included in all copies. The software is provided \"as is\", without warranty of any kind.\n\n\nTHIRD-PARTY COMPONENTS\n\nTDLib (Telegram Database Library)\nCopyright Aliaksei Levin and Arseny Smirnov. Boost Software License 1.0.\ngithub.com/tdlib/td\n\nAndroidX and Jetpack Media3 (ExoPlayer)\nCopyright The Android Open Source Project. Apache License 2.0.\ndeveloper.android.com/jetpack\n\nZXing\nCopyright ZXing authors. Apache License 2.0.\ngithub.com/zxing/zxing\n\nKotlin\nCopyright JetBrains s.r.o. Apache License 2.0.\nkotlinlang.org\n\nThe full license texts are in the repository, in THIRD-PARTY-LICENSES.md.</string>
     <string name="auto_master">Automatic downloads enabled</string>
     <string name="choose_chats">Choose groups and channels</string>
-    <string name="choose_chats_sum">%d selected</string>
+    <plurals name="choose_chats_sum">
+        <item quantity="one">%d selected</item>
+        <item quantity="other">%d selected</item>
+    </plurals>
     <string name="choose_hint">Turn on the chats whose newest videos should download by themselves. Everything else stays off.</string>
     <string name="chat_auto">%s · auto-download</string>
-    <string name="hold_hint">%s · hold OK on a chat to turn its auto-download on or off</string>
+    <string name="hold_hint">%s · hold OK on a chat for favorites and auto-download</string>
     <string name="auto_now_on">Auto-download on: %s</string>
     <string name="auto_now_off">Auto-download off: %s</string>
     <string name="bridge_caption">Prefer typing on your phone? Scan this code (same Wi-Fi network).</string>
@@ -172,9 +181,24 @@
     <string name="g_pin_create">Create a PIN</string>
     <string name="g_pin_done">A PIN is already set.</string>
     <string name="g_tips_t">Using the remote</string>
-    <string name="g_tips">• In a chat, the buttons at the top filter by date, size and duration.\n• Hold OK on a chat to turn its automatic download on or off.\n• Hold OK on a video to delete its download.\n• While watching: left and right skip 10 seconds, and holding goes faster.\n• Menu switches the zoom; OK opens subtitles, audio and speed.\n• Back once hides the controls; Back twice leaves the video.</string>
+    <string name="g_tips">• The home screen shows what you were watching, so you can pick up where you left off.\n• Hold OK on a chat or a video for favorites, auto-download and other options.\n• In a chat, the buttons at the top filter by date, size and duration.\n• While watching: left and right skip 10 seconds, and holding goes faster.\n• Menu switches the zoom; OK opens subtitles, audio and speed.\n• Back once hides the controls; Back twice leaves the video.</string>
     <string name="g_done_t">All set</string>
     <string name="g_done">TeleTV is free, open source and has no ads. If it is useful to you, a Bitcoin donation helps keep the project and its developer going. Point your wallet at the code:</string>
+    <string name="library">Library</string>
+    <string name="continue_watching">Continue watching</string>
+    <string name="sec_continue">Showing: continue watching</string>
+    <string name="sec_history">Showing: watch history</string>
+    <string name="sec_favs">Showing: favorite videos</string>
+    <string name="tab_favorites">★ Favorites</string>
+    <string name="fav_add">Add to favorites</string>
+    <string name="fav_remove">Remove from favorites</string>
+    <string name="hist_remove">Remove from history</string>
+    <string name="del_download">Delete download</string>
+    <string name="auto_turn_on">Turn on auto-download</string>
+    <string name="auto_turn_off">Turn off auto-download</string>
+    <string name="lib_empty">Nothing here yet.</string>
+    <string name="no_fav_chats">No favorite chats yet. Hold OK on a chat to add it.</string>
+    <string name="chat_fav">★ %s</string>
     <string-array name="dates">
         <item>any date</item>
         <item>last 7 days</item>

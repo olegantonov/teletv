@@ -30,6 +30,9 @@ class PlayerActivity : AppCompatActivity() {
     private var sessao: MediaSession? = null
     private var arquivo = 0
     private var chave = ""
+    private var chat = 0L
+    private var msg = 0L
+    private var nome = ""
     private var ultimoVoltar = 0L
     private var zoom = false
     private lateinit var tela: PlayerView
@@ -40,7 +43,10 @@ class PlayerActivity : AppCompatActivity() {
         super.onCreate(b)
         setContentView(R.layout.player)
         arquivo = intent.getIntExtra("arquivo", 0)
-        chave = intent.getStringExtra("chave") ?: ""
+        chat = intent.getLongExtra("chat", 0)
+        msg = intent.getLongExtra("msg", 0)
+        chave = "${chat}_$msg"
+        nome = intent.getStringExtra("titulo") ?: ""
         tela = findViewById(R.id.player)
         aviso = findViewById(R.id.aviso)
         val titulo = findViewById<TextView>(R.id.titulo)
@@ -74,6 +80,7 @@ class PlayerActivity : AppCompatActivity() {
             override fun onPlaybackStateChanged(estado: Int) {
                 if (estado == Player.STATE_ENDED) {
                     Prefs.salvarPosicao(chave, 0)
+                    Biblioteca.registrar(chat, msg, nome, 0, player?.duration ?: 0)
                     finish()
                 }
             }
@@ -92,7 +99,9 @@ class PlayerActivity : AppCompatActivity() {
             val dur = p.duration
             // Perto do fim conta como assistido: da próxima vez começa do zero.
             if (p.playbackState != Player.STATE_ENDED) {
-                Prefs.salvarPosicao(chave, if (dur > 0 && pos > dur * 95 / 100) 0 else pos)
+                val retomar = if (dur > 0 && pos > dur * 95 / 100) 0 else pos
+                Prefs.salvarPosicao(chave, retomar)
+                Biblioteca.registrar(chat, msg, nome, retomar, dur.coerceAtLeast(0))
             }
             sessao?.release()
             p.release()

@@ -6,23 +6,45 @@
 
 An unofficial Telegram client for TVs. It opens your chats, groups and channels and plays their videos on the big screen, all with the remote control. Built for Fire TV and Android TV.
 
-The official Telegram app for Android runs on a TV, but in a phone layout designed for touch. TeleTV covers the use case that is left: sitting on the couch and watching what was posted in your groups.
+The official Telegram app for Android runs on a TV, but in a phone layout designed for touch. TeleTV covers the use case that is left: sitting on the couch and watching what was posted in your groups. It is a viewer: it does not send messages.
 
-## Features
+## What it does
 
-- **Chats**: groups, channels and private chats, with tabs for your folders and the archive, and search by name.
-- **Videos**: a grid with thumbnail, duration, size and date. Switch between videos and video files sent as documents (MKV, MP4 and so on).
-- **Filters**: by date, file size, duration, downloaded only, text search, and sorting by date, size or duration.
+### Home
+
+- **Continue watching**: a row at the top with the videos you left halfway, each with a progress bar.
+- **Chats by tab**: All, Favorites, one tab per Telegram folder, and Archived. Search chats by name.
+- **Library**: watch history, videos in progress and favorite videos in one place.
+- **Chat menu** (hold OK): add to favorites, turn auto-download on or off.
+
+### Inside a chat
+
+- **Video grid** with thumbnail, duration, size, date, download state and how much you have watched.
+- **Filters**: date, file size, duration, downloaded only, text search, and sorting by date, size or duration. With a filter on, the app keeps fetching older messages until the screen fills up.
+- **Videos or video files**: switch to files sent as documents (MKV, MP4 and so on).
+- **Video menu** (hold OK): favorite, delete the download, remove from history.
+
+### Player
+
 - **Streaming**: playback starts while the file is still downloading and resumes where you left off.
-- **Remote-friendly player**: left and right skip 10 s (hold to go faster), Menu toggles zoom, and subtitles, audio track and speed are in the controls. Back once hides the controls; Back twice leaves the video.
-- **Storage under control**: a size limit for downloads and a time limit for videos you have not opened. The oldest ones go first.
-- **Auto-download**: pick, chat by chat, which ones should have their most recent videos downloaded automatically (while the app is open and within the storage limit).
-- **Set up from your phone**: the sign-in screen shows a QR code that opens a page served by the TV itself on your home network. Type your number, code and password there with the phone keyboard, or follow the guided steps to use your own Telegram API key.
-- **Setup guide**: on first launch a short guide walks through sign-in, storage, automatic downloads, the PIN and the remote shortcuts. It can be reopened from Settings.
-- **PIN**: an optional 4-digit PIN to open the app.
-- **Voice**: search fields accept the TV keyboard's dictation; on devices with speech recognition for apps a "Speak" button appears. In the player, the system's voice commands (pause, resume, skip) work through the media session.
-- **Updates**: the app looks for new versions in this repository's releases and installs them in place.
+- **Left / right** skip 10 seconds; holding the key goes faster.
+- **Menu** toggles zoom; **OK** opens the controls with subtitles, audio track and speed.
+- **Back** once hides the controls; **Back** twice leaves the video.
+
+### Storage and downloads
+
+- **Size limit** for downloaded videos (0.5 to 8 GB) and a **time limit** for videos you have not opened. The oldest ones go first, and space is freed before each new video starts.
+- **Auto-download**: pick, chat by chat, which groups and channels should have their newest videos downloaded by themselves. It runs only while the app is open and never exceeds the size limit.
+
+### Setup and settings
+
+- **First-run guide**: sign-in, storage, automatic downloads, PIN and remote shortcuts, in seven short steps.
+- **Sign in three ways**: scan a QR code with the Telegram app, type on the remote, or scan a second QR code and type everything on your phone.
+- **Your own Telegram API key** (optional): the phone page walks you through creating one at my.telegram.org.
+- **PIN**: an optional 4-digit PIN asked every time the app opens.
+- **Updates**: the app checks this repository's releases and installs new versions in place.
 - **Languages**: English and Portuguese, following the device language.
+- **Voice**: search fields accept the TV keyboard's dictation; on devices with speech recognition for apps a "Speak" button appears; the player answers the system's media voice commands.
 
 ## Install
 
@@ -31,8 +53,6 @@ Download the latest APK from [Releases](../../releases/latest) and install it on
 - **Fire TV**: enable *Settings → My Fire TV → Developer options → Apps from Unknown Sources*, then install with the Downloader app (enter the APK address from the release page) or with `adb install teletv-vX.Y.Z.apk`.
 - **Android TV / Google TV**: send the APK with a file manager or use `adb install`.
 - **Obtainium**: add this repository's address to [Obtainium](https://github.com/ImranR98/Obtainium) and it will track new releases.
-
-On first launch, sign in by pointing your phone at the QR code (Telegram → Settings → Devices → Link Desktop Device) or by typing your number and the code. To type on your phone instead of the remote, scan the second QR code on that screen; it works while the phone and the TV are on the same network.
 
 For in-app updates, allow TeleTV to install apps when it asks (on Fire TV: *Developer options → Install unknown apps → TeleTV*).
 
@@ -55,9 +75,15 @@ Requirements: JDK 17 and the Android SDK (platform 34).
    ./gradlew assembleDebug
    ```
 
-The APK is written to `app/build/outputs/apk/debug/`. The build bundles TDLib for `armeabi-v7a` only, the Fire TV Stick architecture; 64-bit devices that still run 32-bit apps work too.
+The APK is written to `app/build/outputs/apk/debug/`. A build without credentials still works: on first launch it asks for an API key through the phone setup page.
+
+The build bundles TDLib for `armeabi-v7a` only, the Fire TV Stick architecture; 64-bit devices that still run 32-bit apps work too.
 
 Releases are built by GitHub Actions when a `v*` tag is pushed, using the secrets `TG_API_ID`, `TG_API_HASH`, `KEYSTORE_BASE64`, `KEYSTORE_PASSWORD`, `KEY_ALIAS` and `KEY_PASSWORD`.
+
+## How it is built
+
+Kotlin with plain Android views, no UI framework. [TDLib](https://github.com/tdlib/td) handles the Telegram protocol and file downloads; [Media3 ExoPlayer](https://github.com/androidx/media) plays the file while TDLib is still downloading it, through a small data source that asks TDLib for the byte range the player needs. History, favorites and settings are stored on the device.
 
 ## Contributing
 
@@ -65,7 +91,7 @@ Issues and pull requests are welcome. Translations live in `app/src/main/res/val
 
 ## Privacy
 
-TeleTV talks only to Telegram's servers and, to look for updates, to the GitHub API. There is no telemetry and no server of its own. Your session and downloaded videos stay in the app's internal storage.
+TeleTV talks only to Telegram's servers and, to look for updates, to the GitHub API. There is no telemetry and no server of its own. Your session, downloaded videos, watch history and favorites stay in the app's internal storage.
 
 The PIN protects the interface from whoever picks up the remote; it does not encrypt the data.
 

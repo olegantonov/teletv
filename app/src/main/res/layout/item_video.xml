@@ -33,6 +33,15 @@
             android:textSize="12sp" />
     </FrameLayout>
 
+    <ProgressBar
+        android:id="@+id/progresso"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:max="1000"
+        android:progressTint="@color/destaque"
+        android:visibility="invisible" />
+
     <TextView
         android:id="@+id/nome"
         android:layout_width="match_parent"
