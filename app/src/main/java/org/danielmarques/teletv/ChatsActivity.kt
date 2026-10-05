@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +24,7 @@ class ChatsActivity : AppCompatActivity() {
     private val adaptador = Adaptador()
     private val busca = Busca(this)
     private var filtroNome = ""
+    private var marcadas: Set<Long> = emptySet()
     private lateinit var buscar: Button
     private val atualizar = Runnable { recarregar() }
 
@@ -61,6 +63,7 @@ class ChatsActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         Tg.ouvir(ouvinte)
+        marcadas = Prefs.autoChats
         montarAbas()
         aoMudarAuth()
     }
@@ -137,7 +140,7 @@ class ChatsActivity : AppCompatActivity() {
             .filter { Tg.ordem(it, lista) != 0L && it.title.contains(filtroNome, ignoreCase = true) }
             .sortedByDescending { Tg.ordem(it, lista) }
         status.text = when {
-            itens.isNotEmpty() -> getString(R.string.chats_count, itens.size)
+            itens.isNotEmpty() -> getString(R.string.hold_hint, getString(R.string.chats_count, itens.size))
             filtroNome.isNotEmpty() -> getString(R.string.no_chat_match, filtroNome)
             else -> getString(R.string.loading_chats)
         }
@@ -162,7 +165,18 @@ class ChatsActivity : AppCompatActivity() {
         override fun onBindViewHolder(h: Linha, i: Int) {
             val c = itens[i]
             h.nome.text = c.title
-            h.tipo.text = tipo(c)
+            h.tipo.text = if (c.id in marcadas) getString(R.string.chat_auto, tipo(c)) else tipo(c)
+            h.tipo.setTextColor(getColor(if (c.id in marcadas) R.color.destaque else R.color.texto_fraco))
+            h.itemView.setOnLongClickListener {
+                val ligar = c.id !in marcadas
+                Prefs.definirAuto(c.id, ligar)
+                marcadas = Prefs.autoChats
+                if (ligar) AutoDownload.sincronizar()
+                val aviso = if (ligar) R.string.auto_now_on else R.string.auto_now_off
+                Toast.makeText(this@ChatsActivity, getString(aviso, c.title), Toast.LENGTH_SHORT).show()
+                notifyItemChanged(h.bindingAdapterPosition)
+                true
+            }
             h.itemView.setOnClickListener {
                 startActivity(
                     Intent(this@ChatsActivity, VideosActivity::class.java)

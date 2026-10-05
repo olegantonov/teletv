@@ -39,18 +39,20 @@ def icone(lado, arredondar=True):
 
 
 def banner():
-    w, h = 320 * S, 180 * S
+    # 1280x720: a Fire TV não amplia o banner, então ele precisa nascer no tamanho do bloco da tela inicial.
+    w, h = 1280 * 2, 720 * 2
     img = gradiente(w, h)
     d = ImageDraw.Draw(img)
-    marca(d, w * 0.2, h * 0.5, h * 0.24, furo=(60, 150, 236))
+    marca(d, w * 0.22, h * 0.5, h * 0.25, furo=(60, 150, 236))
     fonte = ImageFont.truetype(FONTE, int(h * 0.3))
-    d.text((w * 0.36, h * 0.5), "TeleTV", font=fonte, fill=(255, 255, 255), anchor="lm")
-    return img.resize((320, 180), Image.LANCZOS)
+    d.text((w * 0.38, h * 0.5), "TeleTV", font=fonte, fill=(255, 255, 255), anchor="lm")
+    return img.resize((1280, 720), Image.LANCZOS)
 
 
 res = "app/src/main/res"
 for nome, lado in [("mdpi", 48), ("hdpi", 72), ("xhdpi", 96), ("xxhdpi", 144), ("xxxhdpi", 192)]:
     os.makedirs(f"{res}/mipmap-{nome}", exist_ok=True)
     icone(lado).save(f"{res}/mipmap-{nome}/ic_launcher.png")
-banner().save(f"{res}/drawable-xhdpi/banner.png")
+os.makedirs(f"{res}/drawable-nodpi", exist_ok=True)
+banner().save(f"{res}/drawable-nodpi/banner.png")
 icone(512).save("docs/logo.png")

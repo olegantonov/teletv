@@ -37,6 +37,7 @@
         <activity android:name=".PinActivity" />
         <activity android:name=".SobreActivity" />
         <activity android:name=".ApoioActivity" />
+        <activity android:name=".AutoChatsActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

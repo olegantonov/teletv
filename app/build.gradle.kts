@@ -22,8 +22,8 @@ android {
         applicationId = "org.danielmarques.teletv"
         minSdk = 25
         targetSdk = 30
-        versionCode = 4
-        versionName = "0.3.0"
+        versionCode = 5
+        versionName = "0.3.1"
         buildConfigField("int", "TG_API_ID", credencial("TG_API_ID", "tg.apiId", "0"))
         buildConfigField("String", "TG_API_HASH", "\"${credencial("TG_API_HASH", "tg.apiHash", "")}\"")
         buildConfigField("String", "REPO", "\"olegantonov/teletv\"")

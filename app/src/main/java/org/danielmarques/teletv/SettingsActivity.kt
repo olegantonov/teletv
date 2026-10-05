@@ -130,17 +130,15 @@ class SettingsActivity : AppCompatActivity() {
     private fun montarDownloads() {
         cabecalho.setText(R.string.set_downloads)
         nota(getString(R.string.auto_note))
+        chave(getString(R.string.auto_master), null, Prefs.autoLigado) { ligar ->
+            Prefs.autoLigado = ligar
+            if (ligar) AutoDownload.sincronizar()
+        }
+        item(getString(R.string.choose_chats), getString(R.string.choose_chats_sum, Prefs.autoChats.size)) {
+            startActivity(Intent(this, AutoChatsActivity::class.java))
+        }
         deslizante(getString(R.string.auto_count), Prefs.autoQtdOpcoes, Prefs.autoQtd, { it.toString() }) {
             Prefs.autoQtd = it
-        }
-        nota(getString(R.string.auto_chats))
-        val marcadas = Prefs.autoChats
-        if (marcadas.isEmpty()) nota(getString(R.string.auto_none))
-        for (id in marcadas) {
-            chave(Tg.chats[id]?.title ?: id.toString(), null, true) { ligar ->
-                Prefs.definirAuto(id, ligar)
-                if (ligar) AutoDownload.sincronizar()
-            }
         }
     }
 

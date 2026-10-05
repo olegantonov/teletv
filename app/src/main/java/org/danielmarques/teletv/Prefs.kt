@@ -34,6 +34,11 @@ object Prefs {
         get() = sp.getInt("auto_qtd", 5)
         set(v) = sp.edit().putInt("auto_qtd", v).apply()
 
+    /** Chave geral: desligada, nenhuma conversa baixa sozinha, sem perder a seleção. */
+    var autoLigado: Boolean
+        get() = sp.getBoolean("auto_ligado", true)
+        set(v) = sp.edit().putBoolean("auto_ligado", v).apply()
+
     val autoChats: Set<Long>
         get() = sp.getStringSet("auto_chats", emptySet())!!.map { it.toLong() }.toSet()
 

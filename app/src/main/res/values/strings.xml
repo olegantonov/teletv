@@ -111,6 +111,14 @@
     <string name="support_msg">TeleTV is free, open source and has no ads. If it is useful to you, a Bitcoin donation helps keep the project and its developer going.</string>
     <string name="support_hint">Point your wallet\'s camera at the code. Send only Bitcoin (Bitcoin network) to this address.</string>
     <string name="about_text">TeleTV %1$s\n\nAn unofficial Telegram client for TVs: browse your chats and watch their videos with the remote control.\n\nSource code and new versions: github.com/%2$s\n\nThis app is not affiliated with or endorsed by Telegram. It uses the public Telegram API and connects only to Telegram servers and, to look for updates, to GitHub. It does not collect or send usage data.\n\n\nSUPPORT\n\nTeleTV is free and has no ads. Bitcoin donations: %3$s\n(the QR code is in Settings → Support the project)\n\n\nLICENSE\n\nMIT License. Copyright (c) 2026 Daniel Marques.\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software, to use, copy, modify, merge, publish, distribute, sublicense and sell copies, provided that the copyright notice and this permission notice are included in all copies. The software is provided \"as is\", without warranty of any kind.\n\n\nTHIRD-PARTY COMPONENTS\n\nTDLib (Telegram Database Library)\nCopyright Aliaksei Levin and Arseny Smirnov. Boost Software License 1.0.\ngithub.com/tdlib/td\n\nAndroidX and Jetpack Media3 (ExoPlayer)\nCopyright The Android Open Source Project. Apache License 2.0.\ndeveloper.android.com/jetpack\n\nZXing\nCopyright ZXing authors. Apache License 2.0.\ngithub.com/zxing/zxing\n\nKotlin\nCopyright JetBrains s.r.o. Apache License 2.0.\nkotlinlang.org\n\nThe full license texts are in the repository, in THIRD-PARTY-LICENSES.md.</string>
+    <string name="auto_master">Automatic downloads enabled</string>
+    <string name="choose_chats">Choose groups and channels</string>
+    <string name="choose_chats_sum">%d selected</string>
+    <string name="choose_hint">Turn on the chats whose newest videos should download by themselves. Everything else stays off.</string>
+    <string name="chat_auto">%s · auto-download</string>
+    <string name="hold_hint">%s · hold OK on a chat to turn its auto-download on or off</string>
+    <string name="auto_now_on">Auto-download on: %s</string>
+    <string name="auto_now_off">Auto-download off: %s</string>
     <string-array name="dates">
         <item>any date</item>
         <item>last 7 days</item>

@@ -110,6 +110,14 @@
     <string name="support_msg">O TeleTV é gratuito, de código aberto e sem anúncios. Se ele é útil para você, uma doação em Bitcoin ajuda a manter o projeto e o desenvolvedor.</string>
     <string name="support_hint">Aponte a câmera da sua carteira para o código. Envie apenas Bitcoin (rede Bitcoin) para este endereço.</string>
     <string name="about_text">TeleTV %1$s\n\nCliente não oficial do Telegram para TVs: navegue pelas suas conversas e assista aos vídeos pelo controle remoto.\n\nCódigo-fonte e novas versões: github.com/%2$s\n\nEste app não é afiliado ao Telegram nem endossado por ele. Ele usa a API pública do Telegram e se conecta apenas aos servidores do Telegram e, para procurar atualizações, ao GitHub. Não coleta nem envia dados de uso.\n\n\nAPOIE\n\nO TeleTV é gratuito e sem anúncios. Doações em Bitcoin: %3$s\n(o QR code está em Configurações → Apoiar o projeto)\n\n\nLICENÇA\n\nMIT License. Copyright (c) 2026 Daniel Marques.\n\nÉ concedida permissão, gratuitamente, a qualquer pessoa que obtenha uma cópia deste software, para usar, copiar, modificar, mesclar, publicar, distribuir, sublicenciar e vender cópias, desde que o aviso de copyright e esta permissão acompanhem todas as cópias. O software é fornecido \"como está\", sem garantia de qualquer tipo.\n\n\nCOMPONENTES DE TERCEIROS\n\nTDLib (Telegram Database Library)\nCopyright Aliaksei Levin e Arseny Smirnov. Boost Software License 1.0.\ngithub.com/tdlib/td\n\nAndroidX e Jetpack Media3 (ExoPlayer)\nCopyright The Android Open Source Project. Apache License 2.0.\ndeveloper.android.com/jetpack\n\nZXing\nCopyright ZXing authors. Apache License 2.0.\ngithub.com/zxing/zxing\n\nKotlin\nCopyright JetBrains s.r.o. Apache License 2.0.\nkotlinlang.org\n\nOs textos completos das licenças estão no repositório, no arquivo THIRD-PARTY-LICENSES.md.</string>
+    <string name="auto_master">Downloads automáticos ativados</string>
+    <string name="choose_chats">Escolher grupos e canais</string>
+    <string name="choose_chats_sum">%d selecionados</string>
+    <string name="choose_hint">Ligue as conversas cujos vídeos mais recentes devem baixar sozinhos. Todas as outras ficam desligadas.</string>
+    <string name="chat_auto">%s · download automático</string>
+    <string name="hold_hint">%s · segure OK numa conversa para ligar ou desligar o download automático dela</string>
+    <string name="auto_now_on">Download automático ligado: %s</string>
+    <string name="auto_now_off">Download automático desligado: %s</string>
     <string-array name="dates">
         <item>qualquer data</item>
         <item>últimos 7 dias</item>

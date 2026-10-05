@@ -13,6 +13,7 @@ object AutoDownload {
     private var chaveAtual = ""
 
     fun sincronizar() {
+        if (!Prefs.autoLigado) return
         for (chat in Prefs.autoChats) {
             val busca = TdApi.SearchChatMessages(chat, null, "", null, 0, 0, Prefs.autoQtd, TdApi.SearchMessagesFilterVideo())
             Tg.enviar(busca) { r ->
@@ -25,7 +26,7 @@ object AutoDownload {
     }
 
     fun aoChegar(m: TdApi.Message) {
-        if (m.chatId !in Prefs.autoChats) return
+        if (!Prefs.autoLigado || m.chatId !in Prefs.autoChats) return
         enfileirar(m)
         proximo()
     }
