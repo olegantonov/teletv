@@ -77,6 +77,7 @@ class ChatsActivity : AppCompatActivity() {
     private fun aoMudarAuth() {
         if (!Tg.configurado) {
             status.text = getString(R.string.missing_api)
+            if (!Tg.loginAberto) startActivity(Intent(this, LoginActivity::class.java))
             return
         }
         when (Tg.auth) {

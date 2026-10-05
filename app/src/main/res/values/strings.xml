@@ -119,6 +119,37 @@
     <string name="hold_hint">%s · hold OK on a chat to turn its auto-download on or off</string>
     <string name="auto_now_on">Auto-download on: %s</string>
     <string name="auto_now_off">Auto-download off: %s</string>
+    <string name="bridge_caption">Prefer typing on your phone? Scan this code (same Wi-Fi network).</string>
+    <string name="setup_needed">Scan the code with your phone to set up TeleTV. The page walks you through getting a Telegram API key and signing in.</string>
+    <string name="setup_change_key">Scan the code with your phone to enter another Telegram API key. Changing the key signs you out on this TV.</string>
+    <string name="no_network">Connect the TV to your network to set up with your phone.</string>
+    <string name="set_api">Telegram API key</string>
+    <string name="set_api_builtin">Using the key built into this app</string>
+    <string name="set_api_own">Using your own key (api_id %d)</string>
+    <string name="web_title">TeleTV setup</string>
+    <string name="web_api_title">Your Telegram API key</string>
+    <string name="web_api_1">Open my.telegram.org and sign in with your phone number. The code arrives in your Telegram app.</string>
+    <string name="web_api_2">Tap \"API development tools\" and create an app. Any title works; choose the Android platform.</string>
+    <string name="web_api_3">Copy api_id and api_hash from that page and paste them here.</string>
+    <string name="web_open_site">Open my.telegram.org</string>
+    <string name="web_save">Save and continue</string>
+    <string name="web_use_builtin">Use the key built into the app</string>
+    <string name="web_own_key">Use my own API key</string>
+    <string name="web_phone_title">Sign in to Telegram</string>
+    <string name="web_phone_hint">Phone number with country code</string>
+    <string name="web_send">Send code</string>
+    <string name="web_code_title">Enter the code Telegram sent you</string>
+    <string name="web_code_hint">Code</string>
+    <string name="web_confirm">Confirm</string>
+    <string name="web_password_title">Two-step verification password</string>
+    <string name="web_password_hint">Password</string>
+    <string name="web_hint">Hint: </string>
+    <string name="web_enter">Sign in</string>
+    <string name="web_qr">The TV is showing a Telegram QR code. Scan it from the Telegram app (Settings → Devices → Link Desktop Device), or choose \"Start over\" on the TV to use your number.</string>
+    <string name="web_ready">All set. Your TV is signed in; you can close this page.</string>
+    <string name="web_wait">Connecting…</string>
+    <string name="web_invalid">Check the values: api_id is a number and api_hash has 32 characters.</string>
+    <string name="web_lost">Lost contact with the TV. Keep the setup screen open on the TV.</string>
     <string-array name="dates">
         <item>any date</item>
         <item>last 7 days</item>

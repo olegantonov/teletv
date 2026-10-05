@@ -118,6 +118,37 @@
     <string name="hold_hint">%s · segure OK numa conversa para ligar ou desligar o download automático dela</string>
     <string name="auto_now_on">Download automático ligado: %s</string>
     <string name="auto_now_off">Download automático desligado: %s</string>
+    <string name="bridge_caption">Prefere digitar no celular? Aponte a câmera para este código (mesma rede Wi-Fi).</string>
+    <string name="setup_needed">Aponte a câmera do celular para o código para configurar o TeleTV. A página guia você para obter a chave de API do Telegram e entrar na conta.</string>
+    <string name="setup_change_key">Aponte a câmera do celular para o código para informar outra chave de API do Telegram. Trocar a chave desconecta a conta nesta TV.</string>
+    <string name="no_network">Conecte a TV à rede para configurar pelo celular.</string>
+    <string name="set_api">Chave de API do Telegram</string>
+    <string name="set_api_builtin">Usando a chave que vem com o app</string>
+    <string name="set_api_own">Usando a sua chave (api_id %d)</string>
+    <string name="web_title">Configurar o TeleTV</string>
+    <string name="web_api_title">Sua chave de API do Telegram</string>
+    <string name="web_api_1">Abra my.telegram.org e entre com o seu número. O código chega no seu app do Telegram.</string>
+    <string name="web_api_2">Toque em \"API development tools\" e crie um aplicativo. Qualquer título serve; escolha a plataforma Android.</string>
+    <string name="web_api_3">Copie o api_id e o api_hash daquela página e cole aqui.</string>
+    <string name="web_open_site">Abrir my.telegram.org</string>
+    <string name="web_save">Salvar e continuar</string>
+    <string name="web_use_builtin">Usar a chave que vem com o app</string>
+    <string name="web_own_key">Usar a minha própria chave de API</string>
+    <string name="web_phone_title">Entrar no Telegram</string>
+    <string name="web_phone_hint">Número com código do país</string>
+    <string name="web_send">Enviar código</string>
+    <string name="web_code_title">Digite o código que o Telegram enviou</string>
+    <string name="web_code_hint">Código</string>
+    <string name="web_confirm">Confirmar</string>
+    <string name="web_password_title">Senha da verificação em duas etapas</string>
+    <string name="web_password_hint">Senha</string>
+    <string name="web_hint">Dica: </string>
+    <string name="web_enter">Entrar</string>
+    <string name="web_qr">A TV está mostrando um QR code do Telegram. Aponte para ele pelo app do Telegram (Configurações → Dispositivos → Conectar dispositivo) ou escolha \"Voltar ao início\" na TV para usar o seu número.</string>
+    <string name="web_ready">Tudo pronto. Sua TV está conectada; pode fechar esta página.</string>
+    <string name="web_wait">Conectando…</string>
+    <string name="web_invalid">Confira os valores: o api_id é um número e o api_hash tem 32 caracteres.</string>
+    <string name="web_lost">Sem contato com a TV. Mantenha a tela de configuração aberta na TV.</string>
     <string-array name="dates">
         <item>qualquer data</item>
         <item>últimos 7 dias</item>

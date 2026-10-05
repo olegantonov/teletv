@@ -61,6 +61,14 @@ object Prefs {
         get() = sp.getBoolean("auto_atualizar", true)
         set(v) = sp.edit().putBoolean("auto_atualizar", v).apply()
 
+    /** Chave de API informada pelo usuário; 0 = usar a que vem no APK. */
+    val apiId: Int get() = sp.getInt("api_id", 0)
+    val apiHash: String get() = sp.getString("api_hash", "") ?: ""
+
+    fun definirApi(id: Int, hash: String) {
+        sp.edit().putInt("api_id", id).putString("api_hash", hash).apply()
+    }
+
     var ultimaVerificacao: Long
         get() = sp.getLong("ultima_verificacao", 0)
         set(v) = sp.edit().putLong("ultima_verificacao", v).apply()

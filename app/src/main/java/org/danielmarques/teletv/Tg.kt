@@ -26,20 +26,30 @@ object Tg {
     private var cliente: Client? = null
     private val ouvintes = CopyOnWriteArraySet<(TdApi.Object) -> Unit>()
 
-    val configurado: Boolean get() = BuildConfig.TG_API_ID != 0 && BuildConfig.TG_API_HASH.isNotEmpty()
+    val temChaveEmbutida: Boolean get() = BuildConfig.TG_API_ID != 0 && BuildConfig.TG_API_HASH.isNotEmpty()
+    val configurado: Boolean get() = temChaveEmbutida || Prefs.apiId != 0
+    private val apiId: Int get() = Prefs.apiId.takeIf { it != 0 } ?: BuildConfig.TG_API_ID
+    private val apiHash: String get() = Prefs.apiHash.ifEmpty { BuildConfig.TG_API_HASH }
 
     fun iniciar(ctx: Context) {
         app = ctx.applicationContext
-        if (!configurado) return
         try {
             Client.execute(TdApi.SetLogVerbosityLevel(1))
         } catch (_: Throwable) {
         }
-        criarCliente()
+        if (configurado) criarCliente()
     }
 
     private fun criarCliente() {
-        cliente = Client.create({ aoAtualizar(it) }, null, null)
+        cliente = if (configurado) Client.create({ aoAtualizar(it) }, null, null) else null
+    }
+
+    /**
+     * A sessão do Telegram pertence à chave de API com que foi criada. Trocar a chave
+     * encerra a sessão; o cliente renasce com a chave nova quando a TDLib fecha.
+     */
+    fun trocarApi() {
+        if (cliente == null) criarCliente() else enviar(TdApi.LogOut())
     }
 
     /** O ouvinte é chamado na thread principal. */
@@ -90,8 +100,8 @@ object Tg {
                         File(base, "arquivos").absolutePath,
                         null,
                         true, true, true, false,
-                        BuildConfig.TG_API_ID,
-                        BuildConfig.TG_API_HASH,
+                        apiId,
+                        apiHash,
                         Locale.getDefault().toLanguageTag(),
                         Build.MODEL,
                         Build.VERSION.RELEASE,
@@ -109,6 +119,7 @@ object Tg {
                 chats.clear()
                 arquivos.clear()
                 pastas = emptyArray()
+                auth = null
                 criarCliente()
             }
         }

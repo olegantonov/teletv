@@ -96,6 +96,13 @@ class SettingsActivity : AppCompatActivity() {
         )
         submenu(Tela.SEGURANCA, R.string.set_security, "${getString(R.string.pin)}: ${ligado(Prefs.temSenha)}")
         submenu(Tela.ATUALIZACOES, R.string.set_updates, getString(R.string.set_updates_sum, BuildConfig.VERSION_NAME))
+        item(
+            getString(R.string.set_api),
+            if (Prefs.apiId != 0) getString(R.string.set_api_own, Prefs.apiId) else getString(R.string.set_api_builtin),
+        ) {
+            Ponte.pedirApi = true
+            startActivity(Intent(this, LoginActivity::class.java))
+        }
         item(getString(R.string.support), getString(R.string.support_sum)) {
             startActivity(Intent(this, ApoioActivity::class.java))
         }

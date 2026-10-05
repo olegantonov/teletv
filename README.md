@@ -17,6 +17,7 @@ The official Telegram app for Android runs on a TV, but in a phone layout design
 - **Remote-friendly player**: left and right skip 10 s (hold to go faster), Menu toggles zoom, and subtitles, audio track and speed are in the controls. Back once hides the controls; Back twice leaves the video.
 - **Storage under control**: a size limit for downloads and a time limit for videos you have not opened. The oldest ones go first.
 - **Auto-download**: pick, chat by chat, which ones should have their most recent videos downloaded automatically (while the app is open and within the storage limit).
+- **Set up from your phone**: the sign-in screen shows a QR code that opens a page served by the TV itself on your home network. Type your number, code and password there with the phone keyboard, or follow the guided steps to use your own Telegram API key.
 - **PIN**: an optional 4-digit PIN to open the app.
 - **Voice**: search fields accept the TV keyboard's dictation; on devices with speech recognition for apps a "Speak" button appears. In the player, the system's voice commands (pause, resume, skip) work through the media session.
 - **Updates**: the app looks for new versions in this repository's releases and installs them in place.
@@ -30,7 +31,7 @@ Download the latest APK from [Releases](../../releases/latest) and install it on
 - **Android TV / Google TV**: send the APK with a file manager or use `adb install`.
 - **Obtainium**: add this repository's address to [Obtainium](https://github.com/ImranR98/Obtainium) and it will track new releases.
 
-On first launch, sign in by pointing your phone at the QR code (Telegram → Settings → Devices → Link Desktop Device) or by typing your number and the code.
+On first launch, sign in by pointing your phone at the QR code (Telegram → Settings → Devices → Link Desktop Device) or by typing your number and the code. To type on your phone instead of the remote, scan the second QR code on that screen; it works while the phone and the TV are on the same network.
 
 For in-app updates, allow TeleTV to install apps when it asks (on Fire TV: *Developer options → Install unknown apps → TeleTV*).
 
@@ -66,6 +67,8 @@ Issues and pull requests are welcome. Translations live in `app/src/main/res/val
 TeleTV talks only to Telegram's servers and, to look for updates, to the GitHub API. There is no telemetry and no server of its own. Your session and downloaded videos stay in the app's internal storage.
 
 The PIN protects the interface from whoever picks up the remote; it does not encrypt the data.
+
+The phone setup page is plain HTTP inside your local network. It is served only while the sign-in screen is open and its address carries a random code, but avoid using it on networks you do not trust.
 
 ## Support
 

@@ -16,6 +16,7 @@ O app oficial do Telegram para Android roda em TV, mas em formato de celular e p
 - **Reprodução**: toca enquanto baixa e retoma de onde você parou.
 - **Espaço controlado**: limite em GB para os downloads e prazo para apagar o que não é aberto há alguns dias. Os mais antigos saem primeiro.
 - **Download automático**: escolha, conversa por conversa, quais devem ter os vídeos mais recentes baixados sozinhos (com o app aberto e respeitando o limite de espaço).
+- **Configuração pelo celular**: a tela de login mostra um QR code que abre uma página servida pela própria TV na sua rede. Digite ali o número, o código e a senha com o teclado do celular, ou siga o passo a passo para usar a sua própria chave de API do Telegram.
 - **Senha**: PIN de 4 dígitos opcional para abrir o app.
 - **Player para controle remoto**: esquerda e direita pulam 10 s (segurar acelera), Menu alterna o zoom, legendas, faixa de áudio e velocidade nos controles. Voltar uma vez esconde os controles; duas vezes sai do vídeo.
 - **Idiomas**: inglês e português, conforme o idioma do aparelho.
@@ -61,6 +62,8 @@ Os releases são gerados pelo GitHub Actions ao criar uma tag `v*`, usando os se
 O TeleTV fala apenas com os servidores do Telegram e, para procurar atualizações, com a API do GitHub. Não tem telemetria nem servidor próprio. A sessão e os vídeos baixados ficam no armazenamento interno do app.
 
 A senha do app protege a interface contra quem pega o controle remoto; não é criptografia dos dados.
+
+A página de configuração pelo celular é HTTP simples dentro da sua rede local. Ela só fica no ar enquanto a tela de login está aberta e o endereço leva um código aleatório, mas evite usá-la em redes em que você não confia.
 
 ## Apoie
 
