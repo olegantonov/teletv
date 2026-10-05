@@ -1,0 +1,14 @@
+<resources>
+    <color name="fundo">#10151C</color>
+    <color name="cartao">#1B232E</color>
+    <color name="destaque">#2AABEE</color>
+    <color name="texto">#F2F5F8</color>
+    <color name="texto_fraco">#8E9BAA</color>
+
+    <style name="Tema" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@color/fundo</item>
+        <item name="android:textColor">@color/texto</item>
+        <item name="colorAccent">@color/destaque</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+</resources>
