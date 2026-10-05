@@ -107,6 +107,7 @@ class ChatsActivity : AppCompatActivity() {
             val bt = Button(this).apply {
                 text = nome
                 tag = l
+                nextFocusUpId = R.id.buscar
                 isAllCaps = false
                 setBackgroundResource(R.drawable.foco)
                 setPadding(32, 0, 32, 0)

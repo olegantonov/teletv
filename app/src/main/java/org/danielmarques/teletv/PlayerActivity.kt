@@ -23,7 +23,7 @@ import org.drinkless.tdlib.TdApi
 class PlayerActivity : AppCompatActivity() {
     private companion object {
         const val PULO_MS = 10_000L
-        const val JANELA_SAIDA_MS = 2_000L
+        const val JANELA_SAIDA_MS = 2_500L
     }
 
     private var player: ExoPlayer? = null
@@ -46,6 +46,7 @@ class PlayerActivity : AppCompatActivity() {
         val titulo = findViewById<TextView>(R.id.titulo)
         titulo.text = intent.getStringExtra("titulo")
         tela.controllerShowTimeoutMs = 4000
+        tela.controllerAutoShow = false
         tela.setShowSubtitleButton(true)
         tela.setShowNextButton(false)
         tela.setShowPreviousButton(false)
@@ -102,25 +103,29 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     override fun dispatchKeyEvent(e: KeyEvent): Boolean {
-        if (e.action == KeyEvent.ACTION_DOWN) {
-            when (e.keyCode) {
-                KeyEvent.KEYCODE_MENU -> {
-                    alternarZoom()
-                    return true
-                }
-                KeyEvent.KEYCODE_MEDIA_REWIND -> return pular(-1, e)
-                KeyEvent.KEYCODE_MEDIA_FAST_FORWARD -> return pular(1, e)
-                // Com os controles escondidos, esquerda e direita pulam direto, sem abrir a barra.
-                KeyEvent.KEYCODE_DPAD_LEFT -> if (!tela.isControllerFullyVisible) return pular(-1, e)
-                KeyEvent.KEYCODE_DPAD_RIGHT -> if (!tela.isControllerFullyVisible) return pular(1, e)
-            }
+        val sentido = when (e.keyCode) {
+            KeyEvent.KEYCODE_MEDIA_REWIND -> -1
+            KeyEvent.KEYCODE_MEDIA_FAST_FORWARD -> 1
+            // Com os controles escondidos, esquerda e direita pulam direto, sem abrir a barra.
+            KeyEvent.KEYCODE_DPAD_LEFT -> if (tela.isControllerFullyVisible) 0 else -1
+            KeyEvent.KEYCODE_DPAD_RIGHT -> if (tela.isControllerFullyVisible) 0 else 1
+            else -> 0
+        }
+        if (sentido != 0) {
+            // O soltar da tecla também é consumido: se chegasse ao PlayerView, ele abriria os controles.
+            if (e.action == KeyEvent.ACTION_DOWN) pular(sentido, e)
+            return true
+        }
+        if (e.keyCode == KeyEvent.KEYCODE_MENU) {
+            if (e.action == KeyEvent.ACTION_DOWN) alternarZoom()
+            return true
         }
         return super.dispatchKeyEvent(e)
     }
 
     /** Segurar a tecla acelera: 10 s, depois 30 s, depois 60 s por repetição. */
-    private fun pular(sentido: Int, e: KeyEvent): Boolean {
-        val p = player ?: return true
+    private fun pular(sentido: Int, e: KeyEvent) {
+        val p = player ?: return
         val fator = when {
             e.repeatCount > 30 -> 6
             e.repeatCount > 10 -> 3
@@ -131,7 +136,6 @@ class PlayerActivity : AppCompatActivity() {
         p.seekTo(destino)
         val total = if (p.duration > 0) " / ${Formato.duracao((p.duration / 1000).toInt())}" else ""
         avisar((if (sentido > 0) "»  " else "«  ") + Formato.duracao((destino / 1000).toInt()) + total)
-        return true
     }
 
     private fun alternarZoom() {
