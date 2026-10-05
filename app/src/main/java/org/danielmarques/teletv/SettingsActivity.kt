@@ -57,6 +57,7 @@ class SettingsActivity : AppCompatActivity() {
         }.text = "Apagar agora todos os vídeos baixados"
         linha(raiz) { Atualizador.verificar(this, manual = true) }.text =
             "Procurar atualização (versão instalada: ${BuildConfig.VERSION_NAME})"
+        linha(raiz) { startActivity(Intent(this, ApoioActivity::class.java)) }.text = "Apoiar o projeto (doação em Bitcoin)"
         linha(raiz) { startActivity(Intent(this, SobreActivity::class.java)) }.text = "Sobre e licenças"
         linha(raiz) {
             AlertDialog.Builder(this)

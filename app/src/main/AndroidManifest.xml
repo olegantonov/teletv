@@ -36,6 +36,7 @@
         <activity android:name=".SettingsActivity" />
         <activity android:name=".PinActivity" />
         <activity android:name=".SobreActivity" />
+        <activity android:name=".ApoioActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

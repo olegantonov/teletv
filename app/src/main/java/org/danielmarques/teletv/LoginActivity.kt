@@ -1,7 +1,5 @@
 package org.danielmarques.teletv
 
-import android.graphics.Bitmap
-import android.graphics.Color
 import android.os.Bundle
 import android.text.InputType
 import android.view.View
@@ -12,8 +10,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.zxing.BarcodeFormat
-import com.google.zxing.qrcode.QRCodeWriter
 import org.drinkless.tdlib.TdApi
 
 class LoginActivity : AppCompatActivity() {
@@ -87,7 +83,7 @@ class LoginActivity : AppCompatActivity() {
             }
             is TdApi.AuthorizationStateWaitOtherDeviceConfirmation -> {
                 msg.text = "No celular: Telegram → Configurações → Dispositivos → Conectar dispositivo, e aponte a câmera para este código."
-                qr.setImageBitmap(gerarQr(e.link))
+                qr.setImageBitmap(Qr.gerar(e.link))
                 qr.visibility = View.VISIBLE
                 campo.visibility = View.GONE
                 principal.visibility = View.GONE
@@ -130,12 +126,5 @@ class LoginActivity : AppCompatActivity() {
 
     private fun aoResponder(r: TdApi.Object) {
         if (r is TdApi.Error) Toast.makeText(this, "Telegram: ${r.message}", Toast.LENGTH_LONG).show()
-    }
-
-    private fun gerarQr(link: String): Bitmap {
-        val lado = 520
-        val m = QRCodeWriter().encode(link, BarcodeFormat.QR_CODE, lado, lado)
-        val px = IntArray(lado * lado) { i -> if (m[i % lado, i / lado]) Color.BLACK else Color.WHITE }
-        return Bitmap.createBitmap(px, lado, lado, Bitmap.Config.RGB_565)
     }
 }

@@ -14,6 +14,7 @@ class SobreActivity : AppCompatActivity() {
             setLineSpacing(0f, 1.25f)
             setPadding(160, 48, 160, 48)
             text = SOBRE.replace("{versao}", BuildConfig.VERSION_NAME).replace("{repo}", BuildConfig.REPO)
+                .replace("{bitcoin}", ApoioActivity.BITCOIN)
         }
         // Focável para as setas do controle rolarem o texto.
         setContentView(ScrollView(this).apply {
@@ -30,6 +31,12 @@ Cliente não oficial do Telegram para TVs: navegue pelas suas conversas e assist
 Código-fonte e novas versões: github.com/{repo}
 
 Este app não é afiliado ao Telegram nem endossado por ele. Ele usa a API pública do Telegram e se conecta apenas aos servidores do Telegram e, para procurar atualizações, ao GitHub. Não coleta nem envia dados de uso.
+
+
+APOIE
+
+O TeleTV é gratuito e sem anúncios. Doações em Bitcoin: {bitcoin}
+(o QR code está em Configurações → Apoiar o projeto)
 
 
 LICENÇA

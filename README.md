@@ -58,6 +58,16 @@ O TeleTV fala apenas com os servidores do Telegram e, para procurar atualizaçõ
 
 A senha do app protege a interface contra quem pega o controle remoto; não é criptografia dos dados.
 
+## Apoie
+
+O TeleTV é gratuito, de código aberto e sem anúncios. Se ele é útil para você, uma doação em Bitcoin ajuda a manter o projeto e o desenvolvedor:
+
+```
+14XJqVsMfVLpm6s4mX7mHNooihvtdfJq5J
+```
+
+No app, o QR code fica em *Configurações → Apoiar o projeto*.
+
 ## Aviso
 
 Este projeto não é afiliado ao Telegram nem endossado por ele. O uso está sujeito aos [termos da API do Telegram](https://core.telegram.org/api/terms).
