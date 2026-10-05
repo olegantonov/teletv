@@ -32,10 +32,7 @@ class VideosActivity : AppCompatActivity() {
 
     /** Filtros valem para todas as conversas enquanto o app estiver aberto. */
     private object Filtro {
-        val periodos = listOf(0 to "qualquer data", 7 to "últimos 7 dias", 30 to "últimos 30 dias", 90 to "últimos 3 meses", 365 to "último ano")
-        val tamanhos = listOf("qualquer", "até 100 MB", "100 a 500 MB", "500 MB a 1 GB", "acima de 1 GB")
-        val duracoes = listOf("qualquer", "até 5 min", "5 a 20 min", "20 a 60 min", "acima de 1 h")
-        val ordens = listOf("mais recentes", "mais antigos", "maiores", "menores", "mais longos")
+        val dias = intArrayOf(0, 7, 30, 90, 365)
         var periodo = 0
         var tamanho = 0
         var duracao = 0
@@ -128,44 +125,46 @@ class VideosActivity : AppCompatActivity() {
             pintar()
             filtros.addView(bt, LinearLayout.LayoutParams(-2, -2).apply { marginEnd = 10 })
         }
-        botao({ "Data: ${Filtro.periodos[Filtro.periodo].second}" }, { Filtro.periodo != 0 }) {
-            Filtro.periodo = (Filtro.periodo + 1) % Filtro.periodos.size
+        botao({ getString(R.string.filter_date, opcoes(R.array.dates)[Filtro.periodo]) }, { Filtro.periodo != 0 }) {
+            Filtro.periodo = (Filtro.periodo + 1) % Filtro.dias.size
             // Um período maior pode exigir mensagens que ainda não foram buscadas.
             fim = proximo == 0L && todos.isNotEmpty()
             aplicar(buscarMais = true)
         }
-        botao({ "Tamanho: ${Filtro.tamanhos[Filtro.tamanho]}" }, { Filtro.tamanho != 0 }) {
-            Filtro.tamanho = (Filtro.tamanho + 1) % Filtro.tamanhos.size
+        botao({ getString(R.string.filter_size, opcoes(R.array.sizes)[Filtro.tamanho]) }, { Filtro.tamanho != 0 }) {
+            Filtro.tamanho = (Filtro.tamanho + 1) % opcoes(R.array.sizes).size
             aplicar(buscarMais = true)
         }
-        botao({ "Duração: ${Filtro.duracoes[Filtro.duracao]}" }, { Filtro.duracao != 0 }) {
-            Filtro.duracao = (Filtro.duracao + 1) % Filtro.duracoes.size
+        botao({ getString(R.string.filter_duration, opcoes(R.array.durations)[Filtro.duracao]) }, { Filtro.duracao != 0 }) {
+            Filtro.duracao = (Filtro.duracao + 1) % opcoes(R.array.durations).size
             aplicar(buscarMais = true)
         }
-        botao({ "Ordem: ${Filtro.ordens[Filtro.ordem]}" }, { Filtro.ordem != 0 }) {
-            Filtro.ordem = (Filtro.ordem + 1) % Filtro.ordens.size
+        botao({ getString(R.string.filter_order, opcoes(R.array.orders)[Filtro.ordem]) }, { Filtro.ordem != 0 }) {
+            Filtro.ordem = (Filtro.ordem + 1) % opcoes(R.array.orders).size
             aplicar()
         }
-        botao({ if (Filtro.soBaixados) "Só baixados" else "Baixados e não baixados" }, { Filtro.soBaixados }) {
+        botao({ getString(if (Filtro.soBaixados) R.string.only_downloaded else R.string.all_downloads) }, { Filtro.soBaixados }) {
             Filtro.soBaixados = !Filtro.soBaixados
             aplicar(buscarMais = true)
         }
-        botao({ if (Filtro.busca.isEmpty()) "Buscar por nome" else "Busca: ${Filtro.busca}" }, { Filtro.busca.isNotEmpty() }) {
+        botao({ if (Filtro.busca.isEmpty()) getString(R.string.search_name) else getString(R.string.search_active, Filtro.busca) }, { Filtro.busca.isNotEmpty() }) {
             pedirBusca()
         }
-        botao({ if (soDocumentos) "Tipo: arquivos de vídeo" else "Tipo: vídeos" }, { soDocumentos }) {
+        botao({ getString(if (soDocumentos) R.string.kind_files else R.string.kind_videos) }, { soDocumentos }) {
             soDocumentos = !soDocumentos
             reiniciar()
         }
-        botao({ if (chat in Prefs.autoChats) "Download automático: ligado" else "Download automático: desligado" }, { chat in Prefs.autoChats }) {
+        botao({ getString(if (chat in Prefs.autoChats) R.string.auto_on else R.string.auto_off) }, { chat in Prefs.autoChats }) {
             val ligar = chat !in Prefs.autoChats
             Prefs.definirAuto(chat, ligar)
             if (ligar) AutoDownload.sincronizar()
         }
     }
 
+    private fun opcoes(id: Int): Array<String> = resources.getStringArray(id)
+
     private fun pedirBusca() {
-        busca.pedir("Buscar nesta conversa", Filtro.busca) { texto ->
+        busca.pedir(getString(R.string.search_in_chat), Filtro.busca) { texto ->
             Filtro.busca = texto
             montarFiltros()
             reiniciar()
@@ -186,7 +185,7 @@ class VideosActivity : AppCompatActivity() {
     private fun passa(it: Item): Boolean {
         val f = Tg.arquivo(it.arquivo)
         val mb = tamanho(f) / 1048576
-        val dias = Filtro.periodos[Filtro.periodo].first
+        val dias = Filtro.dias[Filtro.periodo]
         if (dias != 0 && it.data < System.currentTimeMillis() / 1000 - dias * 86400L) return false
         val tamanhoOk = when (Filtro.tamanho) {
             1 -> mb <= 100
@@ -218,11 +217,13 @@ class VideosActivity : AppCompatActivity() {
         }
         adaptador.notifyDataSetChanged()
         status.text = when {
-            carregando -> "Carregando…"
-            todos.isEmpty() && fim -> "Nenhum vídeo nesta conversa."
-            else -> "${itens.size} vídeos" +
-                (if (Filtro.ativo) " com estes filtros, de ${todos.size} carregados" else "") +
-                (if (fim) "" else " (há mais: role para baixo)")
+            carregando -> getString(R.string.loading)
+            todos.isEmpty() && fim -> getString(R.string.no_videos)
+            else -> {
+                val contagem = if (Filtro.ativo) getString(R.string.videos_filtered, itens.size, todos.size)
+                else getString(R.string.videos_count, itens.size)
+                if (fim) contagem else getString(R.string.has_more, contagem)
+            }
         }
         if (buscarMais) {
             paginas = 0
@@ -237,7 +238,7 @@ class VideosActivity : AppCompatActivity() {
         if (paginas >= 10) return
         carregando = true
         paginas++
-        status.text = "Carregando…"
+        status.setText(R.string.loading)
         val filtro = if (soDocumentos) TdApi.SearchMessagesFilterDocument() else TdApi.SearchMessagesFilterVideo()
         val estaGeracao = geracao
         Tg.enviar(TdApi.SearchChatMessages(chat, null, Filtro.busca, null, proximo, 0, 50, filtro)) { r ->
@@ -245,7 +246,7 @@ class VideosActivity : AppCompatActivity() {
             carregando = false
             if (r !is TdApi.FoundChatMessages) {
                 fim = true
-                status.text = "Não foi possível carregar: ${(r as? TdApi.Error)?.message}"
+                status.text = getString(R.string.load_error, (r as? TdApi.Error)?.message)
                 return@enviar
             }
             val primeiraCarga = todos.isEmpty()
@@ -253,7 +254,7 @@ class VideosActivity : AppCompatActivity() {
             proximo = r.nextFromMessageId
             fim = proximo == 0L || r.messages.isEmpty()
             // As mensagens vêm da mais nova para a mais antiga: passou do período, não há por que continuar.
-            val dias = Filtro.periodos[Filtro.periodo].first
+            val dias = Filtro.dias[Filtro.periodo]
             val maisAntiga = r.messages.lastOrNull()?.date ?: 0
             if (dias != 0 && maisAntiga < System.currentTimeMillis() / 1000 - dias * 86400L) fim = true
             aplicar()
@@ -265,13 +266,13 @@ class VideosActivity : AppCompatActivity() {
     private fun paraItem(m: TdApi.Message): Item? = when (val c = m.content) {
         is TdApi.MessageVideo -> Item(
             m.id, c.video.video,
-            c.caption.text.ifBlank { c.video.fileName }.ifBlank { "Vídeo" },
+            c.caption.text.ifBlank { c.video.fileName }.ifBlank { getString(R.string.video_default) },
             c.video.duration, c.video.thumbnail, c.video.minithumbnail?.data, m.date,
         )
         is TdApi.MessageDocument ->
             if (ehVideo(c.document)) Item(
                 m.id, c.document.document,
-                c.document.fileName.ifBlank { c.caption.text }.ifBlank { "Vídeo" },
+                c.document.fileName.ifBlank { c.caption.text }.ifBlank { getString(R.string.video_default) },
                 0, c.document.thumbnail, c.document.minithumbnail?.data, m.date,
             ) else null
         else -> null
@@ -288,21 +289,21 @@ class VideosActivity : AppCompatActivity() {
         val total = tamanho(f)
         val falta = total - f.local.downloadedSize
         if (f.local.isDownloadingCompleted) return tocar(it, total)
-        status.text = "Preparando…"
+        status.setText(R.string.preparing)
         // Libera espaço antes: o que já está baixado mais este vídeo precisa caber no limite.
         Tg.limpar(reservar = falta) { _ ->
             val livre = filesDir.usableSpace
             if (falta > livre - 300L * 1048576) {
                 Toast.makeText(
                     this,
-                    "Vídeo de ${Formato.tamanho(total)} não cabe: só há ${Formato.tamanho(livre)} livres no aparelho.",
+                    getString(R.string.no_space, Formato.tamanho(total), Formato.tamanho(livre)),
                     Toast.LENGTH_LONG,
                 ).show()
             } else {
                 if (total > Prefs.limiteBytes) {
                     Toast.makeText(
                         this,
-                        "Este vídeo é maior que o limite de ${Formato.tamanho(Prefs.limiteBytes)}; será apagado ao abrir outro.",
+                        getString(R.string.over_limit, Formato.tamanho(Prefs.limiteBytes)),
                         Toast.LENGTH_LONG,
                     ).show()
                 }
@@ -318,6 +319,7 @@ class VideosActivity : AppCompatActivity() {
                 .putExtra("arquivo", it.arquivo.id)
                 .putExtra("tamanho", total)
                 .putExtra("chave", "${chat}_${it.msg}")
+                .putExtra("titulo", it.titulo)
         )
     }
 
@@ -325,7 +327,7 @@ class VideosActivity : AppCompatActivity() {
         val f = Tg.arquivo(it.arquivo)
         if (f.local.downloadedSize == 0L) return false
         Tg.enviar(TdApi.DeleteFile(f.id)) { _ ->
-            Toast.makeText(this, "Download apagado.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.download_deleted, Toast.LENGTH_SHORT).show()
             adaptador.notifyDataSetChanged()
         }
         return true
@@ -361,12 +363,13 @@ class VideosActivity : AppCompatActivity() {
             h.nome.text = it.titulo
             h.duracao.text = if (it.duracao > 0) Formato.duracao(it.duracao) else ""
             h.duracao.visibility = if (it.duracao > 0) View.VISIBLE else View.GONE
-            val baixado = when {
-                f.local.isDownloadingCompleted -> " · baixado"
-                f.local.downloadedSize > 0 && total > 0 -> " · ${f.local.downloadedSize * 100 / total}% baixado"
-                else -> ""
+            val base = "${Formato.tamanho(total)} · ${Formato.data(it.data)}"
+            h.meta.text = when {
+                f.local.isDownloadingCompleted -> getString(R.string.meta_downloaded, base)
+                f.local.downloadedSize > 0 && total > 0 ->
+                    getString(R.string.meta_downloading, base, (f.local.downloadedSize * 100 / total).toInt())
+                else -> base
             }
-            h.meta.text = "${Formato.tamanho(total)} · ${Formato.data(it.data)}$baixado"
             carregarCapa(it, h.capa)
             h.itemView.setOnClickListener { _ -> abrir(it) }
             h.itemView.setOnLongClickListener { _ -> apagar(it) }

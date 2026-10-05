@@ -5,10 +5,11 @@ import android.content.SharedPreferences
 import java.security.MessageDigest
 
 object Prefs {
-    val limitesGb = floatArrayOf(0.5f, 1f, 2f, 3f, 4f)
+    /** De 0,5 a 8 GB, de meio em meio. */
+    val limitesGb = List(16) { (it + 1) * 0.5f }
 
     // 0 = nunca apagar por idade
-    val diasOpcoes = intArrayOf(1, 3, 7, 14, 30, 0)
+    val diasOpcoes = listOf(1, 2, 3, 5, 7, 14, 30, 60, 0)
 
     private lateinit var sp: SharedPreferences
 
@@ -26,7 +27,7 @@ object Prefs {
 
     val limiteBytes: Long get() = (limiteGb * 1024 * 1024 * 1024).toLong()
 
-    val autoQtdOpcoes = intArrayOf(3, 5, 10, 20)
+    val autoQtdOpcoes = (1..20).toList()
 
     /** Quantos vídeos recentes baixar sozinho em cada conversa marcada. */
     var autoQtd: Int
@@ -50,6 +51,10 @@ object Prefs {
         atual += chave
         sp.edit().putStringSet("auto_feitos", atual.takeLast(1000).toSet()).apply()
     }
+
+    var autoAtualizar: Boolean
+        get() = sp.getBoolean("auto_atualizar", true)
+        set(v) = sp.edit().putBoolean("auto_atualizar", v).apply()
 
     var ultimaVerificacao: Long
         get() = sp.getLong("ultima_verificacao", 0)

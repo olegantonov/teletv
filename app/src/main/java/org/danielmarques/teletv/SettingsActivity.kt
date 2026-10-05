@@ -2,19 +2,32 @@ package org.danielmarques.teletv
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.ScrollView
+import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 import org.drinkless.tdlib.TdApi
 
+/** Menu principal com submenus; Voltar sobe um nível. */
 class SettingsActivity : AppCompatActivity() {
-    private lateinit var limite: TextView
-    private lateinit var idade: TextView
-    private lateinit var uso: TextView
-    private lateinit var auto: TextView
-    private lateinit var senha: TextView
+    private enum class Tela { RAIZ, ARMAZENAMENTO, DOWNLOADS, SEGURANCA, ATUALIZACOES }
+
+    private var tela = Tela.RAIZ
+    private var origem = Tela.RAIZ
+    private lateinit var cabecalho: TextView
+    private lateinit var corpo: LinearLayout
+    private var uso: TextView? = null
+    private var primeiro: View? = null
+    private val focos = HashMap<Tela, View>()
+    private val aplicar = Runnable {
+        Tg.aplicarLimites()
+        Tg.limpar { atualizarUso() }
+    }
 
     override fun onCreate(b: Bundle?) {
         super.onCreate(b)
@@ -22,101 +35,233 @@ class SettingsActivity : AppCompatActivity() {
             orientation = LinearLayout.VERTICAL
             setPadding(160, 40, 160, 40)
         }
-        setContentView(ScrollView(this).apply { addView(raiz) })
-        raiz.addView(TextView(this).apply {
-            text = "Configurações"
+        cabecalho = TextView(this).apply {
             textSize = 26f
             setTextColor(getColor(R.color.destaque))
-        })
-        uso = TextView(this).apply {
-            textSize = 16f
-            setTextColor(getColor(R.color.texto_fraco))
-            setPadding(0, 16, 0, 24)
+            setPadding(0, 0, 0, 20)
         }
-        raiz.addView(uso)
-
-        limite = linha(raiz) {
-            Prefs.limiteGb = seguinte(Prefs.limitesGb.toList(), Prefs.limiteGb)
-            aoMudar()
-        }
-        idade = linha(raiz) {
-            Prefs.dias = seguinte(Prefs.diasOpcoes.toList(), Prefs.dias)
-            aoMudar()
-        }
-        auto = linha(raiz) {
-            Prefs.autoQtd = seguinte(Prefs.autoQtdOpcoes.toList(), Prefs.autoQtd)
-            mostrar()
-            AutoDownload.sincronizar()
-        }
-        senha = linha(raiz) {
-            val modo = if (Prefs.temSenha) PinActivity.REMOVER else PinActivity.DEFINIR
-            startActivity(Intent(this, PinActivity::class.java).putExtra("modo", modo))
-        }
-        linha(raiz) {
-            Tg.limpar(tudo = true) { atualizarUso() }
-        }.text = "Apagar agora todos os vídeos baixados"
-        linha(raiz) { Atualizador.verificar(this, manual = true) }.text =
-            "Procurar atualização (versão instalada: ${BuildConfig.VERSION_NAME})"
-        linha(raiz) { startActivity(Intent(this, ApoioActivity::class.java)) }.text = "Apoiar o projeto (doação em Bitcoin)"
-        linha(raiz) { startActivity(Intent(this, SobreActivity::class.java)) }.text = "Sobre e licenças"
-        linha(raiz) {
-            AlertDialog.Builder(this)
-                .setMessage("Sair da conta do Telegram neste aparelho?")
-                .setPositiveButton("Sair") { _, _ ->
-                    Tg.enviar(TdApi.LogOut())
-                    finish()
-                }
-                .setNegativeButton("Cancelar", null)
-                .show()
-        }.text = "Sair da conta do Telegram"
-
-        limite.requestFocus()
+        corpo = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
+        raiz.addView(cabecalho)
+        raiz.addView(corpo)
+        setContentView(ScrollView(this).apply { addView(raiz) })
     }
 
     override fun onResume() {
         super.onResume()
-        mostrar()
+        // Refaz a tela ao voltar da senha ou de outra Activity, para refletir o que mudou.
+        montar(tela)
     }
 
-    private fun <T> seguinte(opcoes: List<T>, atual: T): T = opcoes[(opcoes.indexOf(atual) + 1) % opcoes.size]
+    override fun onStop() {
+        super.onStop()
+        corpo.removeCallbacks(aplicar)
+    }
 
-    private fun linha(raiz: LinearLayout, aoClicar: () -> Unit): TextView {
-        val t = TextView(this).apply {
-            textSize = 20f
-            setTextColor(getColor(R.color.texto))
-            setBackgroundResource(R.drawable.foco)
-            setPadding(32, 18, 32, 18)
-            isFocusable = true
-            isClickable = true
-            setOnClickListener { aoClicar() }
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        if (tela == Tela.RAIZ) super.onBackPressed() else montar(Tela.RAIZ)
+    }
+
+    private fun montar(nova: Tela) {
+        origem = tela
+        tela = nova
+        corpo.removeAllViews()
+        focos.clear()
+        uso = null
+        primeiro = null
+        when (nova) {
+            Tela.RAIZ -> montarRaiz()
+            Tela.ARMAZENAMENTO -> montarArmazenamento()
+            Tela.DOWNLOADS -> montarDownloads()
+            Tela.SEGURANCA -> montarSeguranca()
+            Tela.ATUALIZACOES -> montarAtualizacoes()
         }
-        raiz.addView(t, LinearLayout.LayoutParams(-1, -2).apply { bottomMargin = 12 })
-        return t
+        // Ao voltar para o menu, o foco retorna à entrada de onde se saiu.
+        val alvo = (if (nova == Tela.RAIZ) focos[origem] else null) ?: primeiro
+        corpo.post { alvo?.requestFocus() }
     }
 
-    private fun aoMudar() {
-        mostrar()
-        Tg.aplicarLimites()
-        Tg.limpar { atualizarUso() }
+    private fun montarRaiz() {
+        cabecalho.setText(R.string.settings)
+        fun submenu(destino: Tela, titulo: Int, resumo: String) {
+            focos[destino] = item(getString(titulo), resumo) { montar(destino) }
+        }
+        submenu(
+            Tela.ARMAZENAMENTO, R.string.set_storage,
+            getString(R.string.set_storage_sum, Formato.tamanho(Prefs.limiteBytes), idade(Prefs.dias)),
+        )
+        submenu(
+            Tela.DOWNLOADS, R.string.set_downloads,
+            getString(R.string.set_downloads_sum, Prefs.autoChats.size, Prefs.autoQtd),
+        )
+        submenu(Tela.SEGURANCA, R.string.set_security, "${getString(R.string.pin)}: ${ligado(Prefs.temSenha)}")
+        submenu(Tela.ATUALIZACOES, R.string.set_updates, getString(R.string.set_updates_sum, BuildConfig.VERSION_NAME))
+        item(getString(R.string.support), getString(R.string.support_sum)) {
+            startActivity(Intent(this, ApoioActivity::class.java))
+        }
+        item(getString(R.string.about), null) { startActivity(Intent(this, SobreActivity::class.java)) }
+        item(getString(R.string.logout), null) {
+            AlertDialog.Builder(this)
+                .setMessage(R.string.logout_confirm)
+                .setPositiveButton(R.string.logout_yes) { _, _ ->
+                    Tg.enviar(TdApi.LogOut())
+                    finish()
+                }
+                .setNegativeButton(R.string.cancel, null)
+                .show()
+        }
     }
 
-    private fun mostrar() {
-        limite.text = "Espaço máximo para vídeos baixados: ${Formato.tamanho(Prefs.limiteBytes)}"
-        idade.text = "Apagar vídeos não abertos há: " +
-            if (Prefs.dias == 0) "nunca apagar por idade" else if (Prefs.dias == 1) "1 dia" else "${Prefs.dias} dias"
-        val marcadas = Prefs.autoChats.size
-        auto.text = "Download automático: os ${Prefs.autoQtd} vídeos mais recentes de cada conversa marcada ($marcadas marcadas)"
-        senha.text = if (Prefs.temSenha) "Senha do app: ativada (clique para remover)" else "Senha do app: desativada (clique para criar)"
+    private fun montarArmazenamento() {
+        cabecalho.setText(R.string.set_storage)
+        uso = nota("")
+        deslizante(getString(R.string.max_space), Prefs.limitesGb, Prefs.limiteGb, { Formato.tamanho((it * 1073741824L).toLong()) }) {
+            Prefs.limiteGb = it
+            agendarLimpeza()
+        }
+        deslizante(getString(R.string.delete_after), Prefs.diasOpcoes, Prefs.dias, ::idade) {
+            Prefs.dias = it
+            agendarLimpeza()
+        }
+        item(getString(R.string.delete_all), null) { Tg.limpar(tudo = true) { atualizarUso() } }
         atualizarUso()
     }
 
-    private fun atualizarUso() {
-        val livre = Formato.tamanho(filesDir.usableSpace)
-        uso.text = "Livre no aparelho: $livre"
-        Tg.enviar(TdApi.GetStorageStatisticsFast()) { r ->
-            if (r is TdApi.StorageStatisticsFast) {
-                uso.text = "Em uso pelo TeleTV: ${Formato.tamanho(r.filesSize)} · Livre no aparelho: ${Formato.tamanho(filesDir.usableSpace)}"
+    private fun montarDownloads() {
+        cabecalho.setText(R.string.set_downloads)
+        nota(getString(R.string.auto_note))
+        deslizante(getString(R.string.auto_count), Prefs.autoQtdOpcoes, Prefs.autoQtd, { it.toString() }) {
+            Prefs.autoQtd = it
+        }
+        nota(getString(R.string.auto_chats))
+        val marcadas = Prefs.autoChats
+        if (marcadas.isEmpty()) nota(getString(R.string.auto_none))
+        for (id in marcadas) {
+            chave(Tg.chats[id]?.title ?: id.toString(), null, true) { ligar ->
+                Prefs.definirAuto(id, ligar)
+                if (ligar) AutoDownload.sincronizar()
             }
         }
+    }
+
+    private fun montarSeguranca() {
+        cabecalho.setText(R.string.set_security)
+        chave(getString(R.string.pin), getString(R.string.pin_note), Prefs.temSenha) { ligar ->
+            // A senha só muda depois de digitada na tela própria; ao voltar, onResume refaz a chave.
+            val modo = if (ligar) PinActivity.DEFINIR else PinActivity.REMOVER
+            startActivity(Intent(this, PinActivity::class.java).putExtra("modo", modo))
+        }
+    }
+
+    private fun montarAtualizacoes() {
+        cabecalho.setText(R.string.set_updates)
+        nota(getString(R.string.set_updates_sum, BuildConfig.VERSION_NAME))
+        chave(getString(R.string.auto_update), null, Prefs.autoAtualizar) { Prefs.autoAtualizar = it }
+        item(getString(R.string.check_update), null) { Atualizador.verificar(this, manual = true) }
+    }
+
+    private fun idade(dias: Int): String = when (dias) {
+        0 -> getString(R.string.never)
+        1 -> getString(R.string.day_one)
+        else -> getString(R.string.days_many, dias)
+    }
+
+    private fun ligado(v: Boolean) = getString(if (v) R.string.on else R.string.off)
+
+    private fun agendarLimpeza() {
+        // Espera o controle parar de mexer antes de apagar arquivos.
+        corpo.removeCallbacks(aplicar)
+        corpo.postDelayed(aplicar, 1200)
+    }
+
+    private fun atualizarUso() {
+        Tg.enviar(TdApi.GetStorageStatisticsFast()) { r ->
+            if (r is TdApi.StorageStatisticsFast) {
+                uso?.text = getString(R.string.usage, Formato.tamanho(r.filesSize), Formato.tamanho(filesDir.usableSpace))
+            }
+        }
+    }
+
+    private fun texto(conteudo: String, tamanho: Float, cor: Int) = TextView(this).apply {
+        text = conteudo
+        textSize = tamanho
+        setTextColor(getColor(cor))
+    }
+
+    private fun linha(): LinearLayout {
+        val l = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setBackgroundResource(R.drawable.foco)
+            setPadding(32, 18, 32, 18)
+        }
+        corpo.addView(l, LinearLayout.LayoutParams(-1, -2).apply { bottomMargin = 12 })
+        return l
+    }
+
+    private fun nota(conteudo: String): TextView {
+        val t = texto(conteudo, 16f, R.color.texto_fraco).apply { setPadding(0, 4, 0, 14) }
+        corpo.addView(t)
+        return t
+    }
+
+    private fun item(titulo: String, resumo: String?, aoClicar: () -> Unit): View {
+        val l = linha()
+        l.addView(texto(titulo, 20f, R.color.texto))
+        if (resumo != null) l.addView(texto(resumo, 15f, R.color.texto_fraco))
+        l.isFocusable = true
+        l.isClickable = true
+        l.setOnClickListener { aoClicar() }
+        if (primeiro == null) primeiro = l
+        return l
+    }
+
+    private fun chave(titulo: String, resumo: String?, marcado: Boolean, aoMudar: (Boolean) -> Unit) {
+        val l = linha()
+        val topo = LinearLayout(this).apply { gravity = Gravity.CENTER_VERTICAL }
+        val interruptor = SwitchCompat(this).apply {
+            isChecked = marcado
+            isFocusable = false
+            isClickable = false
+        }
+        topo.addView(texto(titulo, 20f, R.color.texto), LinearLayout.LayoutParams(0, -2, 1f))
+        topo.addView(interruptor)
+        l.addView(topo)
+        if (resumo != null) l.addView(texto(resumo, 15f, R.color.texto_fraco))
+        l.isFocusable = true
+        l.isClickable = true
+        l.setOnClickListener {
+            interruptor.isChecked = !interruptor.isChecked
+            aoMudar(interruptor.isChecked)
+        }
+        if (primeiro == null) primeiro = l
+    }
+
+    /** Barra deslizante sobre uma lista de valores: esquerda e direita do controle mudam o valor. */
+    private fun <T> deslizante(titulo: String, valores: List<T>, atual: T, rotulo: (T) -> String, aoMudar: (T) -> Unit) {
+        val l = linha()
+        val topo = LinearLayout(this)
+        val valor = texto(rotulo(atual), 20f, R.color.destaque)
+        topo.addView(texto(titulo, 20f, R.color.texto), LinearLayout.LayoutParams(0, -2, 1f))
+        topo.addView(valor)
+        l.addView(topo)
+        val barra = SeekBar(this).apply {
+            max = valores.size - 1
+            progress = valores.indexOf(atual).coerceAtLeast(0)
+            keyProgressIncrement = 1
+            setPadding(8, 20, 8, 8)
+            setOnFocusChangeListener { _, focado -> l.isSelected = focado }
+            setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(s: SeekBar, posicao: Int, doUsuario: Boolean) {
+                    if (!doUsuario) return
+                    valor.text = rotulo(valores[posicao])
+                    aoMudar(valores[posicao])
+                }
+
+                override fun onStartTrackingTouch(s: SeekBar) {}
+                override fun onStopTrackingTouch(s: SeekBar) {}
+            })
+        }
+        l.addView(barra)
+        if (primeiro == null) primeiro = barra
     }
 }

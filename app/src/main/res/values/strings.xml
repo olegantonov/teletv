@@ -1,3 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">TeleTV</string>
+    <string name="app_name" translatable="false">TeleTV</string>
+    <string name="search_chat">Search chats</string>
+    <string name="search_active">Search: %s</string>
+    <string name="settings">Settings</string>
+    <string name="tab_all">All</string>
+    <string name="tab_archived">Archived</string>
+    <string name="missing_api">This build has no Telegram api_id and api_hash configured.</string>
+    <string name="connecting">Connecting to Telegram…</string>
+    <string name="chats_count">%d chats</string>
+    <string name="no_chat_match">No chats matching \"%s\" in this tab.</string>
+    <string name="loading_chats">Loading chats…</string>
+    <string name="type_channel">Channel</string>
+    <string name="type_group">Group</string>
+    <string name="type_chat">Chat</string>
+    <string name="login_title">Sign in to Telegram</string>
+    <string name="login_phone_msg">Enter your phone number with country code (e.g. 15551234567), or sign in by scanning a QR code with your phone.</string>
+    <string name="login_send_code">Send code</string>
+    <string name="login_use_qr">Sign in with QR code</string>
+    <string name="login_restart">Start over</string>
+    <string name="login_qr_msg">On your phone: Telegram → Settings → Devices → Link Desktop Device, then point the camera at this code.</string>
+    <string name="login_code_msg">Enter the code Telegram sent you.</string>
+    <string name="login_confirm_code">Confirm code</string>
+    <string name="login_password_msg">Enter your two-step verification password.</string>
+    <string name="login_password_hint">%1$s Hint: %2$s</string>
+    <string name="login_enter">Sign in</string>
+    <string name="telegram_error">Telegram: %s</string>
+    <string name="filter_date">Date: %s</string>
+    <string name="filter_size">Size: %s</string>
+    <string name="filter_duration">Duration: %s</string>
+    <string name="filter_order">Sort: %s</string>
+    <string name="only_downloaded">Downloaded only</string>
+    <string name="all_downloads">Downloaded or not</string>
+    <string name="search_name">Search by name</string>
+    <string name="kind_videos">Type: videos</string>
+    <string name="kind_files">Type: video files</string>
+    <string name="auto_on">Auto-download: on</string>
+    <string name="auto_off">Auto-download: off</string>
+    <string name="search_in_chat">Search in this chat</string>
+    <string name="loading">Loading…</string>
+    <string name="no_videos">No videos in this chat.</string>
+    <string name="videos_count">%d videos</string>
+    <string name="videos_filtered">%1$d videos match these filters, out of %2$d loaded</string>
+    <string name="has_more">%s (more available: scroll down)</string>
+    <string name="load_error">Could not load: %s</string>
+    <string name="video_default">Video</string>
+    <string name="preparing">Preparing…</string>
+    <string name="no_space">This %1$s video does not fit: only %2$s free on the device.</string>
+    <string name="over_limit">This video is larger than the %s limit; it will be deleted when you open another one.</string>
+    <string name="download_deleted">Download deleted.</string>
+    <string name="meta_downloaded">%s · downloaded</string>
+    <string name="meta_downloading">%1$s · %2$d%% downloaded</string>
+    <string name="search_hint">Type or dictate with the remote\'s microphone</string>
+    <string name="search">Search</string>
+    <string name="clear">Clear</string>
+    <string name="speak">Speak</string>
+    <string name="play_error">Could not play: %s</string>
+    <string name="back_again">Press Back again to exit</string>
+    <string name="zoom_fill">Zoom: fill screen</string>
+    <string name="zoom_fit">Zoom: fit</string>
+    <string name="set_storage">Storage</string>
+    <string name="set_storage_sum">Limit %1$s · %2$s</string>
+    <string name="set_downloads">Automatic downloads</string>
+    <string name="set_downloads_sum">%1$d chats marked · %2$d most recent videos each</string>
+    <string name="set_security">Security</string>
+    <string name="set_updates">Updates</string>
+    <string name="set_updates_sum">Installed version: %s</string>
+    <string name="max_space">Maximum space for downloaded videos</string>
+    <string name="delete_after">Delete videos not opened for</string>
+    <string name="keep_days">delete after %s</string>
+    <string name="never">never delete by age</string>
+    <string name="day_one">1 day</string>
+    <string name="days_many">%d days</string>
+    <string name="usage">Used by TeleTV: %1$s · Free on device: %2$s</string>
+    <string name="delete_all">Delete all downloaded videos now</string>
+    <string name="auto_count">Recent videos to download per chat</string>
+    <string name="auto_chats">Chats with auto-download</string>
+    <string name="auto_none">No chat marked yet. Open a chat and turn on \"Auto-download\".</string>
+    <string name="auto_note">Downloads run only while the app is open and never exceed the storage limit.</string>
+    <string name="pin">Ask for a PIN to open the app</string>
+    <string name="pin_note">A 4-digit PIN. It protects the interface, not the stored data.</string>
+    <string name="auto_update">Check for updates automatically</string>
+    <string name="check_update">Check for updates now</string>
+    <string name="support">Support the project</string>
+    <string name="support_sum">Bitcoin donation</string>
+    <string name="about">About and licenses</string>
+    <string name="logout">Sign out of Telegram</string>
+    <string name="logout_confirm">Sign out of Telegram on this device?</string>
+    <string name="logout_yes">Sign out</string>
+    <string name="cancel">Cancel</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
+    <string name="pin_enter">Enter the TeleTV PIN</string>
+    <string name="pin_remove">Enter the current PIN to remove it</string>
+    <string name="pin_create">Create a %d-digit PIN</string>
+    <string name="pin_repeat">Repeat the PIN to confirm</string>
+    <string name="pin_wrong">Wrong PIN. Try again</string>
+    <string name="pin_mismatch">The PINs do not match. Create it again</string>
+    <string name="pin_delete">Delete</string>
+    <string name="up_to_date">You are on the latest version (%s).</string>
+    <string name="update_check_failed">Could not check: %s</string>
+    <string name="update_title">TeleTV %s available</string>
+    <string name="update_msg">You are on %s. Download and install now?</string>
+    <string name="update_yes">Update</string>
+    <string name="later">Later</string>
+    <string name="update_downloading">Downloading the update…</string>
+    <string name="update_download_failed">Download failed: %s</string>
+    <string name="update_allow">Allow TeleTV to install apps, then choose update again.</string>
+    <string name="support_title">Support TeleTV</string>
+    <string name="support_msg">TeleTV is free, open source and has no ads. If it is useful to you, a Bitcoin donation helps keep the project and its developer going.</string>
+    <string name="support_hint">Point your wallet\'s camera at the code. Send only Bitcoin (Bitcoin network) to this address.</string>
+    <string name="about_text">TeleTV %1$s\n\nAn unofficial Telegram client for TVs: browse your chats and watch their videos with the remote control.\n\nSource code and new versions: github.com/%2$s\n\nThis app is not affiliated with or endorsed by Telegram. It uses the public Telegram API and connects only to Telegram servers and, to look for updates, to GitHub. It does not collect or send usage data.\n\n\nSUPPORT\n\nTeleTV is free and has no ads. Bitcoin donations: %3$s\n(the QR code is in Settings → Support the project)\n\n\nLICENSE\n\nMIT License. Copyright (c) 2026 Daniel Marques.\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software, to use, copy, modify, merge, publish, distribute, sublicense and sell copies, provided that the copyright notice and this permission notice are included in all copies. The software is provided \"as is\", without warranty of any kind.\n\n\nTHIRD-PARTY COMPONENTS\n\nTDLib (Telegram Database Library)\nCopyright Aliaksei Levin and Arseny Smirnov. Boost Software License 1.0.\ngithub.com/tdlib/td\n\nAndroidX and Jetpack Media3 (ExoPlayer)\nCopyright The Android Open Source Project. Apache License 2.0.\ndeveloper.android.com/jetpack\n\nZXing\nCopyright ZXing authors. Apache License 2.0.\ngithub.com/zxing/zxing\n\nKotlin\nCopyright JetBrains s.r.o. Apache License 2.0.\nkotlinlang.org\n\nThe full license texts are in the repository, in THIRD-PARTY-LICENSES.md.</string>
+    <string-array name="dates">
+        <item>any date</item>
+        <item>last 7 days</item>
+        <item>last 30 days</item>
+        <item>last 3 months</item>
+        <item>last year</item>
+    </string-array>
+    <string-array name="sizes">
+        <item>any</item>
+        <item>up to 100 MB</item>
+        <item>100 to 500 MB</item>
+        <item>500 MB to 1 GB</item>
+        <item>over 1 GB</item>
+    </string-array>
+    <string-array name="durations">
+        <item>any</item>
+        <item>up to 5 min</item>
+        <item>5 to 20 min</item>
+        <item>20 to 60 min</item>
+        <item>over 1 h</item>
+    </string-array>
+    <string-array name="orders">
+        <item>newest</item>
+        <item>oldest</item>
+        <item>largest</item>
+        <item>smallest</item>
+        <item>longest</item>
+    </string-array>
 </resources>

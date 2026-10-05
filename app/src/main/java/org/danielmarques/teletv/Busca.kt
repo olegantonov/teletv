@@ -7,6 +7,7 @@ import android.widget.EditText
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import java.util.Locale
 
 /**
  * Caixa de busca. No campo de texto vale o ditado do teclado da própria TV;
@@ -26,18 +27,18 @@ class Busca(private val a: AppCompatActivity) {
         val campo = EditText(a).apply {
             setText(atual)
             setSingleLine()
-            hint = "Digite ou dite pelo microfone do controle"
+            setHint(R.string.search_hint)
         }
         val falar = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
             .putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-            .putExtra(RecognizerIntent.EXTRA_LANGUAGE, "pt-BR")
+            .putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault().toLanguageTag())
         val caixa = AlertDialog.Builder(a)
             .setTitle(titulo)
             .setView(campo)
-            .setPositiveButton("Buscar") { _, _ -> aoResponder(campo.text.toString().trim()) }
-            .setNeutralButton("Limpar") { _, _ -> aoResponder("") }
+            .setPositiveButton(R.string.search) { _, _ -> aoResponder(campo.text.toString().trim()) }
+            .setNeutralButton(R.string.clear) { _, _ -> aoResponder("") }
         if (falar.resolveActivity(a.packageManager) != null) {
-            caixa.setNegativeButton("Falar") { _, _ -> voz.launch(falar) }
+            caixa.setNegativeButton(R.string.speak) { _, _ -> voz.launch(falar) }
         }
         caixa.show()
     }

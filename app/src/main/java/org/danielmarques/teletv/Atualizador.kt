@@ -35,11 +35,11 @@ object Atualizador {
                     if (apk != null && maisNova(versao, BuildConfig.VERSION_NAME)) {
                         oferecer(a, versao, apk)
                     } else if (manual) {
-                        avisar(a, "Você já está na versão mais recente (${BuildConfig.VERSION_NAME}).")
+                        avisar(a, a.getString(R.string.up_to_date, BuildConfig.VERSION_NAME))
                     }
                 }
             } catch (e: Exception) {
-                if (manual) a.runOnUiThread { avisar(a, "Não foi possível verificar: ${e.message}") }
+                if (manual) a.runOnUiThread { avisar(a, a.getString(R.string.update_check_failed, e.message)) }
             }
         }
     }
@@ -56,15 +56,15 @@ object Atualizador {
 
     private fun oferecer(a: AppCompatActivity, versao: String, url: String) {
         AlertDialog.Builder(a)
-            .setTitle("TeleTV $versao disponível")
-            .setMessage("Você está na ${BuildConfig.VERSION_NAME}. Baixar e instalar agora?")
-            .setPositiveButton("Atualizar") { _, _ -> baixar(a, url) }
-            .setNegativeButton("Depois", null)
+            .setTitle(a.getString(R.string.update_title, versao))
+            .setMessage(a.getString(R.string.update_msg, BuildConfig.VERSION_NAME))
+            .setPositiveButton(R.string.update_yes) { _, _ -> baixar(a, url) }
+            .setNegativeButton(R.string.later, null)
             .show()
     }
 
     private fun baixar(a: AppCompatActivity, url: String) {
-        avisar(a, "Baixando a atualização…")
+        avisar(a, a.getString(R.string.update_downloading))
         thread {
             try {
                 val destino = File(a.cacheDir, "atualizacao/teletv.apk")
@@ -72,14 +72,14 @@ object Atualizador {
                 URL(url).openStream().use { entrada -> destino.outputStream().use { entrada.copyTo(it) } }
                 a.runOnUiThread { instalar(a, destino) }
             } catch (e: Exception) {
-                a.runOnUiThread { avisar(a, "Falha ao baixar: ${e.message}") }
+                a.runOnUiThread { avisar(a, a.getString(R.string.update_download_failed, e.message)) }
             }
         }
     }
 
     private fun instalar(a: AppCompatActivity, apk: File) {
         if (Build.VERSION.SDK_INT >= 26 && !a.packageManager.canRequestPackageInstalls()) {
-            avisar(a, "Autorize o TeleTV a instalar apps e toque em atualizar de novo.")
+            avisar(a, a.getString(R.string.update_allow))
             try {
                 a.startActivity(Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, Uri.parse("package:${a.packageName}")))
             } catch (_: Exception) {

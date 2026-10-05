@@ -2,76 +2,85 @@
 
 # TeleTV
 
-Cliente não oficial do Telegram para TVs. Abre suas conversas, grupos e canais e toca os vídeos direto na tela grande, tudo pelo controle remoto. Feito para Fire TV e Android TV.
+**English** · [Português](README.pt-BR.md)
 
-O app oficial do Telegram para Android roda em TV, mas em formato de celular e pensado para toque. O TeleTV existe para o caso de uso que sobra: sentar no sofá e assistir ao que foi postado nos grupos.
+An unofficial Telegram client for TVs. It opens your chats, groups and channels and plays their videos on the big screen, all with the remote control. Built for Fire TV and Android TV.
 
-## O que faz
+The official Telegram app for Android runs on a TV, but in a phone layout designed for touch. TeleTV covers the use case that is left: sitting on the couch and watching what was posted in your groups.
 
-- **Conversas**: lista grupos, canais e conversas, com abas para as suas pastas e para os arquivados, e busca por nome.
-- **Vídeos**: grade com capa, duração, tamanho e data. Alterna entre vídeos e arquivos de vídeo enviados como documento (MKV, MP4 etc.).
-- **Filtros**: por data, tamanho do arquivo, duração, só baixados, busca por texto, e ordenação por data, tamanho ou duração.
-- **Reprodução**: toca enquanto baixa e retoma de onde você parou.
-- **Espaço controlado**: limite em GB para os downloads e prazo para apagar o que não é aberto há alguns dias. Os mais antigos saem primeiro.
-- **Download automático**: escolha, conversa por conversa, quais devem ter os vídeos mais recentes baixados sozinhos (com o app aberto e respeitando o limite de espaço).
-- **Senha**: PIN de 4 dígitos opcional para abrir o app.
-- **Voz**: nos campos de busca vale o ditado do teclado da TV; em aparelhos com reconhecimento de voz para apps aparece o botão "Falar". No player, os comandos de voz do sistema (pausar, continuar, avançar) funcionam pela sessão de mídia.
-- **Atualização**: o app procura novas versões nos releases deste repositório e instala por cima.
+## Features
 
-## Instalar
+- **Chats**: groups, channels and private chats, with tabs for your folders and the archive, and search by name.
+- **Videos**: a grid with thumbnail, duration, size and date. Switch between videos and video files sent as documents (MKV, MP4 and so on).
+- **Filters**: by date, file size, duration, downloaded only, text search, and sorting by date, size or duration.
+- **Streaming**: playback starts while the file is still downloading and resumes where you left off.
+- **Remote-friendly player**: left and right skip 10 s (hold to go faster), Menu toggles zoom, and subtitles, audio track and speed are in the controls. Back once hides the controls; Back twice leaves the video.
+- **Storage under control**: a size limit for downloads and a time limit for videos you have not opened. The oldest ones go first.
+- **Auto-download**: pick, chat by chat, which ones should have their most recent videos downloaded automatically (while the app is open and within the storage limit).
+- **PIN**: an optional 4-digit PIN to open the app.
+- **Voice**: search fields accept the TV keyboard's dictation; on devices with speech recognition for apps a "Speak" button appears. In the player, the system's voice commands (pause, resume, skip) work through the media session.
+- **Updates**: the app looks for new versions in this repository's releases and installs them in place.
+- **Languages**: English and Portuguese, following the device language.
 
-Baixe o APK mais recente em [Releases](../../releases/latest) e instale na TV.
+## Install
 
-- **Fire TV**: ative *Configurações → Minha Fire TV → Opções do desenvolvedor → Apps de fontes desconhecidas* e instale com o app Downloader ou com `adb install teletv-vX.Y.Z.apk`.
-- **Android TV / Google TV**: envie o APK com um gerenciador de arquivos ou por `adb install`.
+Download the latest APK from [Releases](../../releases/latest) and install it on your TV.
 
-No primeiro uso, entre apontando o celular para o QR code (Telegram → Configurações → Dispositivos → Conectar dispositivo) ou digitando o número e o código.
+- **Fire TV**: enable *Settings → My Fire TV → Developer options → Apps from Unknown Sources*, then install with the Downloader app (enter the APK address from the release page) or with `adb install teletv-vX.Y.Z.apk`.
+- **Android TV / Google TV**: send the APK with a file manager or use `adb install`.
+- **Obtainium**: add this repository's address to [Obtainium](https://github.com/ImranR98/Obtainium) and it will track new releases.
 
-Para o app conseguir se atualizar sozinho, autorize-o a instalar apps quando ele pedir (na Fire TV: *Opções do desenvolvedor → Instalar apps desconhecidos → TeleTV*).
+On first launch, sign in by pointing your phone at the QR code (Telegram → Settings → Devices → Link Desktop Device) or by typing your number and the code.
 
-## Compilar
+For in-app updates, allow TeleTV to install apps when it asks (on Fire TV: *Developer options → Install unknown apps → TeleTV*).
 
-Requisitos: JDK 17 e Android SDK (plataforma 34).
+## Build
 
-1. Crie suas credenciais em <https://my.telegram.org> → *API development tools*.
-2. Coloque-as no `local.properties`, que não vai para o git:
+Requirements: JDK 17 and the Android SDK (platform 34).
+
+1. Create your credentials at <https://my.telegram.org> → *API development tools*.
+2. Put them in `local.properties`, which is not tracked by git:
 
    ```properties
-   sdk.dir=/caminho/para/android-sdk
+   sdk.dir=/path/to/android-sdk
    tg.apiId=123456
    tg.apiHash=0123456789abcdef0123456789abcdef
    ```
 
-3. Compile:
+3. Build:
 
    ```bash
    ./gradlew assembleDebug
    ```
 
-O APK sai em `app/build/outputs/apk/debug/`. O build inclui a TDLib só para `armeabi-v7a`, a arquitetura da Fire TV Stick; aparelhos de 64 bits com suporte a apps de 32 bits também rodam.
+The APK is written to `app/build/outputs/apk/debug/`. The build bundles TDLib for `armeabi-v7a` only, the Fire TV Stick architecture; 64-bit devices that still run 32-bit apps work too.
 
-Os releases são gerados pelo GitHub Actions ao criar uma tag `v*`, usando os secrets `TG_API_ID`, `TG_API_HASH`, `KEYSTORE_BASE64`, `KEYSTORE_PASSWORD`, `KEY_ALIAS` e `KEY_PASSWORD`.
+Releases are built by GitHub Actions when a `v*` tag is pushed, using the secrets `TG_API_ID`, `TG_API_HASH`, `KEYSTORE_BASE64`, `KEYSTORE_PASSWORD`, `KEY_ALIAS` and `KEY_PASSWORD`.
 
-## Privacidade
+## Contributing
 
-O TeleTV fala apenas com os servidores do Telegram e, para procurar atualizações, com a API do GitHub. Não tem telemetria nem servidor próprio. A sessão e os vídeos baixados ficam no armazenamento interno do app.
+Issues and pull requests are welcome. Translations live in `app/src/main/res/values-*/strings.xml`: copy `values/strings.xml` to a new `values-<language>` folder and translate it.
 
-A senha do app protege a interface contra quem pega o controle remoto; não é criptografia dos dados.
+## Privacy
 
-## Apoie
+TeleTV talks only to Telegram's servers and, to look for updates, to the GitHub API. There is no telemetry and no server of its own. Your session and downloaded videos stay in the app's internal storage.
 
-O TeleTV é gratuito, de código aberto e sem anúncios. Se ele é útil para você, uma doação em Bitcoin ajuda a manter o projeto e o desenvolvedor:
+The PIN protects the interface from whoever picks up the remote; it does not encrypt the data.
+
+## Support
+
+TeleTV is free, open source and has no ads. If it is useful to you, a Bitcoin donation helps keep the project and its developer going:
 
 ```
 14XJqVsMfVLpm6s4mX7mHNooihvtdfJq5J
 ```
 
-No app, o QR code fica em *Configurações → Apoiar o projeto*.
+In the app, the QR code is under *Settings → Support the project*.
 
-## Aviso
+## Disclaimer
 
-Este projeto não é afiliado ao Telegram nem endossado por ele. O uso está sujeito aos [termos da API do Telegram](https://core.telegram.org/api/terms).
+This project is not affiliated with or endorsed by Telegram. Use is subject to the [Telegram API terms](https://core.telegram.org/api/terms).
 
-## Licença
+## License
 
-[MIT](LICENSE). Componentes de terceiros e suas licenças estão em [LICENCAS-TERCEIROS.md](LICENCAS-TERCEIROS.md).
+[MIT](LICENSE). Third-party components and their licenses are listed in [THIRD-PARTY-LICENSES.md](THIRD-PARTY-LICENSES.md).

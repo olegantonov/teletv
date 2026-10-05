@@ -45,13 +45,13 @@ class TdDataSource(private val idArquivo: Int, private val tamanho: Long) : Base
         var disp = disponivel()
         var esperas = 0
         while (disp <= 0) {
-            if (Thread.currentThread().isInterrupted) throw IOException("leitura interrompida")
+            if (Thread.currentThread().isInterrupted) throw IOException("read interrupted")
             synchronized(Tg.travaArquivos) {
                 try {
                     Tg.travaArquivos.wait(500)
                 } catch (e: InterruptedException) {
                     Thread.currentThread().interrupt()
-                    throw IOException("leitura interrompida")
+                    throw IOException("read interrupted")
                 }
             }
             disp = disponivel()

@@ -44,14 +44,15 @@ class PinActivity : AppCompatActivity() {
         raiz.addView(pontos, LinearLayout.LayoutParams(-2, -2))
 
         val teclado = GridLayout(this).apply { columnCount = 3 }
-        for (rotulo in listOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "Apagar", "0")) {
+        val apagarRotulo = getString(R.string.pin_delete)
+        for (rotulo in listOf("1", "2", "3", "4", "5", "6", "7", "8", "9", apagarRotulo, "0")) {
             val bt = Button(this).apply {
                 text = rotulo
                 textSize = 22f
                 isAllCaps = false
                 setTextColor(getColor(R.color.texto))
                 setBackgroundResource(R.drawable.foco)
-                setOnClickListener { if (rotulo == "Apagar") apagar() else digitar(rotulo) }
+                setOnClickListener { if (rotulo == apagarRotulo) apagar() else digitar(rotulo) }
             }
             teclado.addView(bt, GridLayout.LayoutParams().apply {
                 width = 220
@@ -84,10 +85,10 @@ class PinActivity : AppCompatActivity() {
 
     private fun mostrar(aviso: String? = null) {
         titulo.text = aviso ?: when {
-            modo == ABRIR -> "Digite a senha do TeleTV"
-            modo == REMOVER -> "Digite a senha atual para removê-la"
-            primeira == null -> "Crie uma senha de $TAMANHO dígitos"
-            else -> "Repita a senha para confirmar"
+            modo == ABRIR -> getString(R.string.pin_enter)
+            modo == REMOVER -> getString(R.string.pin_remove)
+            primeira == null -> getString(R.string.pin_create, TAMANHO)
+            else -> getString(R.string.pin_repeat)
         }
         pontos.text = "●".repeat(digitado.length) + "○".repeat(TAMANHO - digitado.length)
     }
@@ -109,7 +110,7 @@ class PinActivity : AppCompatActivity() {
         digitado = ""
         when (modo) {
             ABRIR, REMOVER -> {
-                if (!Prefs.senhaConfere(pin)) return mostrar("Senha incorreta. Tente de novo")
+                if (!Prefs.senhaConfere(pin)) return mostrar(getString(R.string.pin_wrong))
                 if (modo == REMOVER) Prefs.definirSenha(null)
                 Trava.liberado = true
                 finish()
@@ -125,7 +126,7 @@ class PinActivity : AppCompatActivity() {
                     finish()
                 } else {
                     primeira = null
-                    mostrar("As senhas não conferem. Crie de novo")
+                    mostrar(getString(R.string.pin_mismatch))
                 }
             }
         }

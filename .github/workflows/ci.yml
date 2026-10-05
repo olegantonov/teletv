@@ -18,5 +18,5 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
 
-      - name: Compilar
+      - name: Build
         run: ./gradlew assembleDebug --console=plain

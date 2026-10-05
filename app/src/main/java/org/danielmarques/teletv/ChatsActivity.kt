@@ -46,13 +46,13 @@ class ChatsActivity : AppCompatActivity() {
         rv.adapter = adaptador
         buscar = findViewById(R.id.buscar)
         buscar.setOnClickListener {
-            busca.pedir("Buscar conversa", filtroNome) { texto ->
+            busca.pedir(getString(R.string.search_chat), filtroNome) { texto ->
                 filtroNome = texto
-                buscar.text = if (texto.isEmpty()) "Buscar conversa" else "Busca: $texto"
+                buscar.text = if (texto.isEmpty()) getString(R.string.search_chat) else getString(R.string.search_active, texto)
                 recarregar()
             }
         }
-        Atualizador.verificar(this, manual = false)
+        if (Prefs.autoAtualizar) Atualizador.verificar(this, manual = false)
         findViewById<Button>(R.id.config).setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
         }
@@ -73,7 +73,7 @@ class ChatsActivity : AppCompatActivity() {
 
     private fun aoMudarAuth() {
         if (!Tg.configurado) {
-            status.text = "Falta configurar o api_id e o api_hash do Telegram neste APK."
+            status.text = getString(R.string.missing_api)
             return
         }
         when (Tg.auth) {
@@ -86,14 +86,14 @@ class ChatsActivity : AppCompatActivity() {
                 adaptador.notifyDataSetChanged()
                 if (!Tg.loginAberto) startActivity(Intent(this, LoginActivity::class.java))
             }
-            else -> status.text = "Conectando ao Telegram…"
+            else -> status.text = getString(R.string.connecting)
         }
     }
 
     private fun montarAbas() {
-        val opcoes = mutableListOf<Pair<String, TdApi.ChatList>>("Todos" to TdApi.ChatListMain())
+        val opcoes = mutableListOf<Pair<String, TdApi.ChatList>>(getString(R.string.tab_all) to TdApi.ChatListMain())
         Tg.pastas.forEach { opcoes += it.name.text.text to TdApi.ChatListFolder(it.id) }
-        opcoes += "Arquivados" to TdApi.ChatListArchive()
+        opcoes += getString(R.string.tab_archived) to TdApi.ChatListArchive()
         // Reconstruir as abas tira o foco do controle; só refaz quando as pastas mudam.
         val assinatura = opcoes.joinToString("|") { it.first }
         if (assinatura == abasMontadas) return pintarAbas()
@@ -137,18 +137,18 @@ class ChatsActivity : AppCompatActivity() {
             .filter { Tg.ordem(it, lista) != 0L && it.title.contains(filtroNome, ignoreCase = true) }
             .sortedByDescending { Tg.ordem(it, lista) }
         status.text = when {
-            itens.isNotEmpty() -> "${itens.size} conversas"
-            filtroNome.isNotEmpty() -> "Nenhuma conversa com \"$filtroNome\" nesta aba."
-            else -> "Carregando conversas…"
+            itens.isNotEmpty() -> getString(R.string.chats_count, itens.size)
+            filtroNome.isNotEmpty() -> getString(R.string.no_chat_match, filtroNome)
+            else -> getString(R.string.loading_chats)
         }
         adaptador.notifyDataSetChanged()
         if (itens.isNotEmpty() && currentFocus == null) rv.post { rv.getChildAt(0)?.requestFocus() }
     }
 
     private fun tipo(c: TdApi.Chat): String = when (val t = c.type) {
-        is TdApi.ChatTypeSupergroup -> if (t.isChannel) "Canal" else "Grupo"
-        is TdApi.ChatTypeBasicGroup -> "Grupo"
-        else -> "Conversa"
+        is TdApi.ChatTypeSupergroup -> getString(if (t.isChannel) R.string.type_channel else R.string.type_group)
+        is TdApi.ChatTypeBasicGroup -> getString(R.string.type_group)
+        else -> getString(R.string.type_chat)
     }
 
     private inner class Adaptador : RecyclerView.Adapter<Linha>() {

@@ -27,17 +27,14 @@ class ApoioActivity : AppCompatActivity() {
             setTextColor(getColor(cor))
             setPadding(0, 12, 0, 12)
         }
-        raiz.addView(texto("Apoie o TeleTV", 28f, R.color.destaque))
-        raiz.addView(texto(
-            "O TeleTV é gratuito, de código aberto e sem anúncios. Se ele é útil para você, uma doação em Bitcoin ajuda a manter o projeto e o desenvolvedor.",
-            18f, R.color.texto,
-        ))
+        raiz.addView(texto(getString(R.string.support_title), 28f, R.color.destaque))
+        raiz.addView(texto(getString(R.string.support_msg), 18f, R.color.texto))
         raiz.addView(ImageView(this).apply {
             setImageBitmap(Qr.gerar("bitcoin:$BITCOIN"))
             setBackgroundColor(getColor(android.R.color.white))
             setPadding(12, 12, 12, 12)
         }, LinearLayout.LayoutParams(420, 420).apply { topMargin = 16 })
         raiz.addView(texto(BITCOIN, 22f, R.color.texto))
-        raiz.addView(texto("Aponte a câmera da sua carteira para o código. Envie apenas Bitcoin (rede Bitcoin) para este endereço.", 15f, R.color.texto_fraco))
+        raiz.addView(texto(getString(R.string.support_hint), 15f, R.color.texto_fraco))
     }
 }

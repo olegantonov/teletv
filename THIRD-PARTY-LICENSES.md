@@ -1,16 +1,16 @@
-# Licenças de terceiros
+# Third-party licenses
 
-O TeleTV inclui ou depende dos componentes abaixo.
+TeleTV includes or depends on the components below.
 
-| Componente | Titular | Licença |
+| Component | Copyright holder | License |
 | --- | --- | --- |
-| [TDLib](https://github.com/tdlib/td) (código Java e `libtdjni.so`, via [tdlibx/td](https://github.com/tdlibx/td)) | Aliaksei Levin, Arseny Smirnov | Boost Software License 1.0 |
+| [TDLib](https://github.com/tdlib/td) (Java sources and `libtdjni.so`, via [tdlibx/td](https://github.com/tdlibx/td)) | Aliaksei Levin, Arseny Smirnov | Boost Software License 1.0 |
 | [AndroidX](https://developer.android.com/jetpack/androidx) (core, appcompat, recyclerview) | The Android Open Source Project | Apache License 2.0 |
 | [Jetpack Media3](https://github.com/androidx/media) (ExoPlayer, UI, Session) | The Android Open Source Project | Apache License 2.0 |
 | [ZXing](https://github.com/zxing/zxing) | ZXing authors | Apache License 2.0 |
 | [Kotlin](https://kotlinlang.org) | JetBrains s.r.o. | Apache License 2.0 |
 
-A fonte usada na logo é a [Inter](https://rsms.me/inter/), sob SIL Open Font License 1.1.
+The typeface used in the logo is [Inter](https://rsms.me/inter/), under the SIL Open Font License 1.1.
 
 ## Boost Software License 1.0
 

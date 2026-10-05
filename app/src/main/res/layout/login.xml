@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Entrar no Telegram"
+        android:text="@string/login_title"
         android:textColor="@color/destaque"
         android:textSize="28sp"
         android:textStyle="bold" />

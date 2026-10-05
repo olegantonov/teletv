@@ -73,16 +73,16 @@ class LoginActivity : AppCompatActivity() {
         campo.visibility = View.VISIBLE
         principal.visibility = View.VISIBLE
         secundario.visibility = View.VISIBLE
-        secundario.text = "Voltar ao início"
+        secundario.setText(R.string.login_restart)
         when (e) {
             is TdApi.AuthorizationStateWaitPhoneNumber -> {
-                msg.text = "Digite seu número com o código do país (ex.: 5511999999999) ou entre apontando o celular para um QR code."
+                msg.setText(R.string.login_phone_msg)
                 campo.inputType = InputType.TYPE_CLASS_PHONE
-                principal.text = "Enviar código"
-                secundario.text = "Entrar com QR code"
+                principal.setText(R.string.login_send_code)
+                secundario.setText(R.string.login_use_qr)
             }
             is TdApi.AuthorizationStateWaitOtherDeviceConfirmation -> {
-                msg.text = "No celular: Telegram → Configurações → Dispositivos → Conectar dispositivo, e aponte a câmera para este código."
+                msg.setText(R.string.login_qr_msg)
                 qr.setImageBitmap(Qr.gerar(e.link))
                 qr.visibility = View.VISIBLE
                 campo.visibility = View.GONE
@@ -90,18 +90,18 @@ class LoginActivity : AppCompatActivity() {
                 if (mudou) secundario.requestFocus()
             }
             is TdApi.AuthorizationStateWaitCode -> {
-                msg.text = "Digite o código que o Telegram enviou."
+                msg.setText(R.string.login_code_msg)
                 campo.inputType = InputType.TYPE_CLASS_NUMBER
-                principal.text = "Confirmar código"
+                principal.setText(R.string.login_confirm_code)
             }
             is TdApi.AuthorizationStateWaitPassword -> {
-                val dica = if (e.passwordHint.isNullOrEmpty()) "" else " Dica: ${e.passwordHint}"
-                msg.text = "Digite a senha da verificação em duas etapas.$dica"
+                val pedido = getString(R.string.login_password_msg)
+                msg.text = if (e.passwordHint.isNullOrEmpty()) pedido else getString(R.string.login_password_hint, pedido, e.passwordHint)
                 campo.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-                principal.text = "Entrar"
+                principal.setText(R.string.login_enter)
             }
             else -> {
-                msg.text = "Conectando ao Telegram…"
+                msg.setText(R.string.connecting)
                 campo.visibility = View.GONE
                 principal.visibility = View.GONE
                 secundario.visibility = View.GONE
@@ -125,6 +125,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun aoResponder(r: TdApi.Object) {
-        if (r is TdApi.Error) Toast.makeText(this, "Telegram: ${r.message}", Toast.LENGTH_LONG).show()
+        if (r is TdApi.Error) Toast.makeText(this, getString(R.string.telegram_error, r.message), Toast.LENGTH_LONG).show()
     }
 }

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_chat">Buscar conversa</string>
+    <string name="search_active">Busca: %s</string>
+    <string name="settings">Configurações</string>
+    <string name="tab_all">Todos</string>
+    <string name="tab_archived">Arquivados</string>
+    <string name="missing_api">Falta configurar o api_id e o api_hash do Telegram neste APK.</string>
+    <string name="connecting">Conectando ao Telegram…</string>
+    <string name="chats_count">%d conversas</string>
+    <string name="no_chat_match">Nenhuma conversa com \"%s\" nesta aba.</string>
+    <string name="loading_chats">Carregando conversas…</string>
+    <string name="type_channel">Canal</string>
+    <string name="type_group">Grupo</string>
+    <string name="type_chat">Conversa</string>
+    <string name="login_title">Entrar no Telegram</string>
+    <string name="login_phone_msg">Digite seu número com o código do país (ex.: 5511999999999) ou entre apontando o celular para um QR code.</string>
+    <string name="login_send_code">Enviar código</string>
+    <string name="login_use_qr">Entrar com QR code</string>
+    <string name="login_restart">Voltar ao início</string>
+    <string name="login_qr_msg">No celular: Telegram → Configurações → Dispositivos → Conectar dispositivo, e aponte a câmera para este código.</string>
+    <string name="login_code_msg">Digite o código que o Telegram enviou.</string>
+    <string name="login_confirm_code">Confirmar código</string>
+    <string name="login_password_msg">Digite a senha da verificação em duas etapas.</string>
+    <string name="login_password_hint">%1$s Dica: %2$s</string>
+    <string name="login_enter">Entrar</string>
+    <string name="telegram_error">Telegram: %s</string>
+    <string name="filter_date">Data: %s</string>
+    <string name="filter_size">Tamanho: %s</string>
+    <string name="filter_duration">Duração: %s</string>
+    <string name="filter_order">Ordem: %s</string>
+    <string name="only_downloaded">Só baixados</string>
+    <string name="all_downloads">Baixados e não baixados</string>
+    <string name="search_name">Buscar por nome</string>
+    <string name="kind_videos">Tipo: vídeos</string>
+    <string name="kind_files">Tipo: arquivos de vídeo</string>
+    <string name="auto_on">Download automático: ligado</string>
+    <string name="auto_off">Download automático: desligado</string>
+    <string name="search_in_chat">Buscar nesta conversa</string>
+    <string name="loading">Carregando…</string>
+    <string name="no_videos">Nenhum vídeo nesta conversa.</string>
+    <string name="videos_count">%d vídeos</string>
+    <string name="videos_filtered">%1$d vídeos com estes filtros, de %2$d carregados</string>
+    <string name="has_more">%s (há mais: role para baixo)</string>
+    <string name="load_error">Não foi possível carregar: %s</string>
+    <string name="video_default">Vídeo</string>
+    <string name="preparing">Preparando…</string>
+    <string name="no_space">Vídeo de %1$s não cabe: só há %2$s livres no aparelho.</string>
+    <string name="over_limit">Este vídeo é maior que o limite de %s; será apagado ao abrir outro.</string>
+    <string name="download_deleted">Download apagado.</string>
+    <string name="meta_downloaded">%s · baixado</string>
+    <string name="meta_downloading">%1$s · %2$d%% baixado</string>
+    <string name="search_hint">Digite ou dite pelo microfone do controle</string>
+    <string name="search">Buscar</string>
+    <string name="clear">Limpar</string>
+    <string name="speak">Falar</string>
+    <string name="play_error">Não foi possível reproduzir: %s</string>
+    <string name="back_again">Pressione Voltar de novo para sair</string>
+    <string name="zoom_fill">Zoom: preencher a tela</string>
+    <string name="zoom_fit">Zoom: ajustar</string>
+    <string name="set_storage">Armazenamento</string>
+    <string name="set_storage_sum">Limite de %1$s · %2$s</string>
+    <string name="set_downloads">Downloads automáticos</string>
+    <string name="set_downloads_sum">%1$d conversas marcadas · %2$d vídeos mais recentes de cada</string>
+    <string name="set_security">Segurança</string>
+    <string name="set_updates">Atualizações</string>
+    <string name="set_updates_sum">Versão instalada: %s</string>
+    <string name="max_space">Espaço máximo para vídeos baixados</string>
+    <string name="delete_after">Apagar vídeos não abertos há</string>
+    <string name="keep_days">apaga após %s</string>
+    <string name="never">nunca apagar por idade</string>
+    <string name="day_one">1 dia</string>
+    <string name="days_many">%d dias</string>
+    <string name="usage">Em uso pelo TeleTV: %1$s · Livre no aparelho: %2$s</string>
+    <string name="delete_all">Apagar agora todos os vídeos baixados</string>
+    <string name="auto_count">Vídeos recentes a baixar por conversa</string>
+    <string name="auto_chats">Conversas com download automático</string>
+    <string name="auto_none">Nenhuma conversa marcada. Abra uma conversa e ligue \"Download automático\".</string>
+    <string name="auto_note">Os downloads só acontecem com o app aberto e nunca passam do limite de espaço.</string>
+    <string name="pin">Pedir senha para abrir o app</string>
+    <string name="pin_note">Senha de 4 dígitos. Protege a interface, não os dados gravados.</string>
+    <string name="auto_update">Procurar atualizações automaticamente</string>
+    <string name="check_update">Procurar atualização agora</string>
+    <string name="support">Apoiar o projeto</string>
+    <string name="support_sum">Doação em Bitcoin</string>
+    <string name="about">Sobre e licenças</string>
+    <string name="logout">Sair da conta do Telegram</string>
+    <string name="logout_confirm">Sair da conta do Telegram neste aparelho?</string>
+    <string name="logout_yes">Sair</string>
+    <string name="cancel">Cancelar</string>
+    <string name="on">Ligado</string>
+    <string name="off">Desligado</string>
+    <string name="pin_enter">Digite a senha do TeleTV</string>
+    <string name="pin_remove">Digite a senha atual para removê-la</string>
+    <string name="pin_create">Crie uma senha de %d dígitos</string>
+    <string name="pin_repeat">Repita a senha para confirmar</string>
+    <string name="pin_wrong">Senha incorreta. Tente de novo</string>
+    <string name="pin_mismatch">As senhas não conferem. Crie de novo</string>
+    <string name="pin_delete">Apagar</string>
+    <string name="up_to_date">Você já está na versão mais recente (%s).</string>
+    <string name="update_check_failed">Não foi possível verificar: %s</string>
+    <string name="update_title">TeleTV %s disponível</string>
+    <string name="update_msg">Você está na %s. Baixar e instalar agora?</string>
+    <string name="update_yes">Atualizar</string>
+    <string name="later">Depois</string>
+    <string name="update_downloading">Baixando a atualização…</string>
+    <string name="update_download_failed">Falha ao baixar: %s</string>
+    <string name="update_allow">Autorize o TeleTV a instalar apps e escolha atualizar de novo.</string>
+    <string name="support_title">Apoie o TeleTV</string>
+    <string name="support_msg">O TeleTV é gratuito, de código aberto e sem anúncios. Se ele é útil para você, uma doação em Bitcoin ajuda a manter o projeto e o desenvolvedor.</string>
+    <string name="support_hint">Aponte a câmera da sua carteira para o código. Envie apenas Bitcoin (rede Bitcoin) para este endereço.</string>
+    <string name="about_text">TeleTV %1$s\n\nCliente não oficial do Telegram para TVs: navegue pelas suas conversas e assista aos vídeos pelo controle remoto.\n\nCódigo-fonte e novas versões: github.com/%2$s\n\nEste app não é afiliado ao Telegram nem endossado por ele. Ele usa a API pública do Telegram e se conecta apenas aos servidores do Telegram e, para procurar atualizações, ao GitHub. Não coleta nem envia dados de uso.\n\n\nAPOIE\n\nO TeleTV é gratuito e sem anúncios. Doações em Bitcoin: %3$s\n(o QR code está em Configurações → Apoiar o projeto)\n\n\nLICENÇA\n\nMIT License. Copyright (c) 2026 Daniel Marques.\n\nÉ concedida permissão, gratuitamente, a qualquer pessoa que obtenha uma cópia deste software, para usar, copiar, modificar, mesclar, publicar, distribuir, sublicenciar e vender cópias, desde que o aviso de copyright e esta permissão acompanhem todas as cópias. O software é fornecido \"como está\", sem garantia de qualquer tipo.\n\n\nCOMPONENTES DE TERCEIROS\n\nTDLib (Telegram Database Library)\nCopyright Aliaksei Levin e Arseny Smirnov. Boost Software License 1.0.\ngithub.com/tdlib/td\n\nAndroidX e Jetpack Media3 (ExoPlayer)\nCopyright The Android Open Source Project. Apache License 2.0.\ndeveloper.android.com/jetpack\n\nZXing\nCopyright ZXing authors. Apache License 2.0.\ngithub.com/zxing/zxing\n\nKotlin\nCopyright JetBrains s.r.o. Apache License 2.0.\nkotlinlang.org\n\nOs textos completos das licenças estão no repositório, no arquivo THIRD-PARTY-LICENSES.md.</string>
+    <string-array name="dates">
+        <item>qualquer data</item>
+        <item>últimos 7 dias</item>
+        <item>últimos 30 dias</item>
+        <item>últimos 3 meses</item>
+        <item>último ano</item>
+    </string-array>
+    <string-array name="sizes">
+        <item>qualquer</item>
+        <item>até 100 MB</item>
+        <item>100 a 500 MB</item>
+        <item>500 MB a 1 GB</item>
+        <item>acima de 1 GB</item>
+    </string-array>
+    <string-array name="durations">
+        <item>qualquer</item>
+        <item>até 5 min</item>
+        <item>5 a 20 min</item>
+        <item>20 a 60 min</item>
+        <item>acima de 1 h</item>
+    </string-array>
+    <string-array name="orders">
+        <item>mais recentes</item>
+        <item>mais antigos</item>
+        <item>maiores</item>
+        <item>menores</item>
+        <item>mais longos</item>
+    </string-array>
+</resources>

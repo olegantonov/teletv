@@ -7,6 +7,7 @@ import android.os.Looper
 import org.drinkless.tdlib.Client
 import org.drinkless.tdlib.TdApi
 import java.io.File
+import java.util.Locale
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArraySet
 
@@ -91,8 +92,8 @@ object Tg {
                         true, true, true, false,
                         BuildConfig.TG_API_ID,
                         BuildConfig.TG_API_HASH,
-                        "pt-BR",
-                        "Fire TV (${Build.MODEL})",
+                        Locale.getDefault().toLanguageTag(),
+                        Build.MODEL,
                         Build.VERSION.RELEASE,
                         BuildConfig.VERSION_NAME,
                     )

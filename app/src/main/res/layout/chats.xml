@@ -29,7 +29,7 @@
             android:layout_marginEnd="12dp"
             android:background="@drawable/foco"
             android:paddingHorizontal="20dp"
-            android:text="Buscar conversa"
+            android:text="@string/search_chat"
             android:textAllCaps="false"
             android:textColor="@color/texto" />
 
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/foco"
             android:paddingHorizontal="20dp"
-            android:text="Configurações"
+            android:text="@string/settings"
             android:textAllCaps="false"
             android:textColor="@color/texto" />
     </LinearLayout>
