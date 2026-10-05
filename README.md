@@ -18,6 +18,7 @@ The official Telegram app for Android runs on a TV, but in a phone layout design
 - **Storage under control**: a size limit for downloads and a time limit for videos you have not opened. The oldest ones go first.
 - **Auto-download**: pick, chat by chat, which ones should have their most recent videos downloaded automatically (while the app is open and within the storage limit).
 - **Set up from your phone**: the sign-in screen shows a QR code that opens a page served by the TV itself on your home network. Type your number, code and password there with the phone keyboard, or follow the guided steps to use your own Telegram API key.
+- **Setup guide**: on first launch a short guide walks through sign-in, storage, automatic downloads, the PIN and the remote shortcuts. It can be reopened from Settings.
 - **PIN**: an optional 4-digit PIN to open the app.
 - **Voice**: search fields accept the TV keyboard's dictation; on devices with speech recognition for apps a "Speak" button appears. In the player, the system's voice commands (pause, resume, skip) work through the media session.
 - **Updates**: the app looks for new versions in this repository's releases and installs them in place.

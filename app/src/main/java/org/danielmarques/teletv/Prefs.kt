@@ -69,6 +69,11 @@ object Prefs {
         sp.edit().putInt("api_id", id).putString("api_hash", hash).apply()
     }
 
+    /** O guia de primeira execução já foi concluído ou pulado. */
+    var guiaFeito: Boolean
+        get() = sp.getBoolean("guia_feito", false)
+        set(v) = sp.edit().putBoolean("guia_feito", v).apply()
+
     var ultimaVerificacao: Long
         get() = sp.getLong("ultima_verificacao", 0)
         set(v) = sp.edit().putLong("ultima_verificacao", v).apply()

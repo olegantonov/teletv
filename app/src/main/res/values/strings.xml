@@ -150,6 +150,31 @@
     <string name="web_wait">Connecting…</string>
     <string name="web_invalid">Check the values: api_id is a number and api_hash has 32 characters.</string>
     <string name="web_lost">Lost contact with the TV. Keep the setup screen open on the TV.</string>
+    <string name="guide">Setup guide</string>
+    <string name="guide_sum">Go through the first-run steps again</string>
+    <string name="guide_step">Step %1$d of %2$d</string>
+    <string name="guide_next">Next</string>
+    <string name="guide_back">Back</string>
+    <string name="guide_skip">Skip the guide</string>
+    <string name="guide_finish">Start using TeleTV</string>
+    <string name="g_welcome_t">Welcome to TeleTV</string>
+    <string name="g_welcome">TeleTV shows the videos from your Telegram chats, groups and channels on the TV, all with the remote control.\n\nThis guide takes about a minute: sign in, decide how much space videos may use, and pick what downloads by itself.</string>
+    <string name="g_login_t">Sign in to Telegram</string>
+    <string name="g_login">The next screen signs you in. You can scan a QR code with the Telegram app, type your number with the remote, or scan the second code to type everything on your phone.</string>
+    <string name="g_login_go">Sign in now</string>
+    <string name="g_login_done">You are signed in.</string>
+    <string name="g_storage_t">Storage</string>
+    <string name="g_storage">Videos are stored on the TV while you watch. Set how much space they may take and after how long unopened videos are deleted. The oldest ones go first.</string>
+    <string name="g_auto_t">Automatic downloads</string>
+    <string name="g_auto">Choose the groups and channels whose newest videos should download by themselves, so they are ready when you sit down. You can change this at any time, and nothing downloads unless you turn it on.</string>
+    <string name="g_pin_t">Protect the app</string>
+    <string name="g_pin">If other people use this TV, you can ask for a 4-digit PIN every time TeleTV opens.</string>
+    <string name="g_pin_create">Create a PIN</string>
+    <string name="g_pin_done">A PIN is already set.</string>
+    <string name="g_tips_t">Using the remote</string>
+    <string name="g_tips">• In a chat, the buttons at the top filter by date, size and duration.\n• Hold OK on a chat to turn its automatic download on or off.\n• Hold OK on a video to delete its download.\n• While watching: left and right skip 10 seconds, and holding goes faster.\n• Menu switches the zoom; OK opens subtitles, audio and speed.\n• Back once hides the controls; Back twice leaves the video.</string>
+    <string name="g_done_t">All set</string>
+    <string name="g_done">TeleTV is free, open source and has no ads. If it is useful to you, a Bitcoin donation helps keep the project and its developer going. Point your wallet at the code:</string>
     <string-array name="dates">
         <item>any date</item>
         <item>last 7 days</item>

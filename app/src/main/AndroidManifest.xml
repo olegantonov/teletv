@@ -38,6 +38,7 @@
         <activity android:name=".SobreActivity" />
         <activity android:name=".ApoioActivity" />
         <activity android:name=".AutoChatsActivity" />
+        <activity android:name=".GuiaActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

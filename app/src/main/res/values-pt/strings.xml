@@ -149,6 +149,31 @@
     <string name="web_wait">Conectando…</string>
     <string name="web_invalid">Confira os valores: o api_id é um número e o api_hash tem 32 caracteres.</string>
     <string name="web_lost">Sem contato com a TV. Mantenha a tela de configuração aberta na TV.</string>
+    <string name="guide">Guia de configuração</string>
+    <string name="guide_sum">Rever os passos da primeira configuração</string>
+    <string name="guide_step">Passo %1$d de %2$d</string>
+    <string name="guide_next">Avançar</string>
+    <string name="guide_back">Voltar</string>
+    <string name="guide_skip">Pular o guia</string>
+    <string name="guide_finish">Começar a usar o TeleTV</string>
+    <string name="g_welcome_t">Bem-vindo ao TeleTV</string>
+    <string name="g_welcome">O TeleTV mostra na TV os vídeos das suas conversas, grupos e canais do Telegram, tudo pelo controle remoto.\n\nEste guia leva cerca de um minuto: entrar na conta, definir quanto espaço os vídeos podem ocupar e escolher o que baixa sozinho.</string>
+    <string name="g_login_t">Entrar no Telegram</string>
+    <string name="g_login">A próxima tela faz o login. Você pode apontar o app do Telegram para um QR code, digitar seu número pelo controle ou ler o segundo código para digitar tudo no celular.</string>
+    <string name="g_login_go">Entrar agora</string>
+    <string name="g_login_done">Você já está conectado.</string>
+    <string name="g_storage_t">Armazenamento</string>
+    <string name="g_storage">Os vídeos ficam guardados na TV enquanto você assiste. Defina quanto espaço eles podem ocupar e depois de quanto tempo sem abrir são apagados. Os mais antigos saem primeiro.</string>
+    <string name="g_auto_t">Downloads automáticos</string>
+    <string name="g_auto">Escolha os grupos e canais cujos vídeos mais recentes devem baixar sozinhos, para já estarem prontos quando você sentar. Dá para mudar a qualquer momento, e nada baixa sem você ligar.</string>
+    <string name="g_pin_t">Proteger o app</string>
+    <string name="g_pin">Se outras pessoas usam esta TV, você pode pedir uma senha de 4 dígitos sempre que o TeleTV abrir.</string>
+    <string name="g_pin_create">Criar uma senha</string>
+    <string name="g_pin_done">A senha já está criada.</string>
+    <string name="g_tips_t">Usando o controle</string>
+    <string name="g_tips">• Dentro de uma conversa, os botões do topo filtram por data, tamanho e duração.\n• Segure OK numa conversa para ligar ou desligar o download automático dela.\n• Segure OK num vídeo para apagar o download dele.\n• Assistindo: esquerda e direita pulam 10 segundos, e segurar acelera.\n• Menu troca o zoom; OK abre legendas, áudio e velocidade.\n• Voltar uma vez esconde os controles; duas vezes sai do vídeo.</string>
+    <string name="g_done_t">Tudo pronto</string>
+    <string name="g_done">O TeleTV é gratuito, de código aberto e sem anúncios. Se ele for útil para você, uma doação em Bitcoin ajuda a manter o projeto e o desenvolvedor. Aponte sua carteira para o código:</string>
     <string-array name="dates">
         <item>qualquer data</item>
         <item>últimos 7 dias</item>

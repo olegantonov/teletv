@@ -17,6 +17,7 @@ O app oficial do Telegram para Android roda em TV, mas em formato de celular e p
 - **Espaço controlado**: limite em GB para os downloads e prazo para apagar o que não é aberto há alguns dias. Os mais antigos saem primeiro.
 - **Download automático**: escolha, conversa por conversa, quais devem ter os vídeos mais recentes baixados sozinhos (com o app aberto e respeitando o limite de espaço).
 - **Configuração pelo celular**: a tela de login mostra um QR code que abre uma página servida pela própria TV na sua rede. Digite ali o número, o código e a senha com o teclado do celular, ou siga o passo a passo para usar a sua própria chave de API do Telegram.
+- **Guia de configuração**: na primeira abertura, um guia curto passa por login, armazenamento, downloads automáticos, senha e atalhos do controle. Pode ser reaberto pelas Configurações.
 - **Senha**: PIN de 4 dígitos opcional para abrir o app.
 - **Player para controle remoto**: esquerda e direita pulam 10 s (segurar acelera), Menu alterna o zoom, legendas, faixa de áudio e velocidade nos controles. Voltar uma vez esconde os controles; duas vezes sai do vídeo.
 - **Idiomas**: inglês e português, conforme o idioma do aparelho.

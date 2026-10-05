@@ -62,6 +62,13 @@ class ChatsActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        // Com o app travado, a tela de senha vem primeiro; ao fechar, este onStart roda de novo.
+        if (Prefs.temSenha && !Trava.liberado) return
+        if (!Prefs.guiaFeito) {
+            // Primeira execução: o guia cuida do login e das escolhas iniciais antes da lista.
+            startActivity(Intent(this, GuiaActivity::class.java))
+            return
+        }
         Tg.ouvir(ouvinte)
         marcadas = Prefs.autoChats
         montarAbas()
